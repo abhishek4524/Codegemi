@@ -1,16 +1,23 @@
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
+// App.js
+import React from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Partners from './components/Partners';
+import Features from './components/Features';
+import CTA from './components/CTA';
+import Footer from './components/Footer';
 
 function App() {
-
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-
-      </Routes>
+    <div className="App">
+      <Navbar />
+      <Hero />
+      <Partners />
+      <Features />
+      <CTA />
+      <Footer />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,0 +1,333 @@
+// components/Navbar.js
+import React, { useState, useEffect, useRef } from 'react';
+import { assets } from '../assets/assets';
+
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeItem, setActiveItem] = useState('home');
+  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const menuRef = useRef(null);
+  const dropdownTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    // Close mobile menu when clicking outside
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMobileMenuOpen(false);
+        setActiveDropdown(null);
+        setSearchOpen(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleItemClick = (item) => {
+    setActiveItem(item);
+    setMobileMenuOpen(false);
+  };
+
+  const handleDropdownEnter = (dropdown) => {
+    if (dropdownTimeoutRef.current) {
+      clearTimeout(dropdownTimeoutRef.current);
+    }
+    setActiveDropdown(dropdown);
+  };
+
+  const handleDropdownLeave = () => {
+    dropdownTimeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 300);
+  };
+
+  const toggleSearch = () => {
+    setSearchOpen(!searchOpen);
+    setActiveDropdown(null);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      console.log('Searching for:', searchQuery);
+      // Implement search functionality here
+    }
+  };
+
+  const navItems = [
+    { 
+      id: 'home', 
+      label: 'Home',
+    },
+    { 
+      id: 'services', 
+      label: 'Services',
+      dropdown: [
+        { id: 'services-overview', label: 'Services Overview' },
+        { id: 'web-development', label: 'Web Development' },
+        { id: 'mobile-apps', label: 'Mobile Applications' },
+        { id: 'ui-ux-design', label: 'UI/UX Design' },
+        { id: 'cloud-solutions', label: 'Cloud Solutions' },
+        { id: 'devops', label: 'DevOps' },
+      ]
+    },
+    { 
+      id: 'solutions', 
+      label: 'Solutions',
+      dropdown: [
+        { id: 'solutions-overview', label: 'Solutions Overview' },
+        { id: 'ecommerce', label: 'E-Commerce Solutions' },
+        { id: 'crm', label: 'CRM Solutions' },
+        { id: 'analytics', label: 'Data Analytics' },
+        { id: 'ai-ml', label: 'AI & Machine Learning' },
+      ]
+    },
+    { 
+      id: 'blog', 
+      label: 'Blog',
+      dropdown: [
+        { id: 'blog-grid', label: 'Blog Grid' },
+        { id: 'blog-standard', label: 'Blog Standard' },
+        { id: 'blog-details', label: 'Blog Details' },
+        { id: 'blog-categories', label: 'Categories' },
+      ]
+    },
+    { 
+      id: 'about', 
+      label: 'About',
+    },
+    { 
+      id: 'contact', 
+      label: 'Contact',
+    },
+  ];
+
+  return (
+    <nav 
+      ref={menuRef}
+      className={`fixed w-full z-50 py-3 px-6 lg:px-12 transition-all duration-500 ease-out ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo */}
+        <div className="flex items-center z-60">
+          <img 
+            src={assets.CodeGemiLogofinal2} 
+            alt="CodeGemi Logo" 
+            className={`h-16 transition-all duration-500 ${scrolled ? 'h-14' : 'h-16'}`}
+          />
+        </div>
+        
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center space-x-1">
+          {navItems.map((item) => (
+            <div 
+              key={item.id}
+              className="relative"
+              onMouseEnter={() => item.dropdown && handleDropdownEnter(item.id)}
+              onMouseLeave={handleDropdownLeave}
+            >
+              <a 
+                href={`#${item.id}`} 
+                className={`relative px-4 py-2 font-medium transition-all duration-300 group ${
+                  scrolled ? 'text-gray-800' : 'text-white'
+                }`}
+                onClick={() => handleItemClick(item.id)}
+              >
+                <span className={`transition-colors ${activeItem === item.id ? 'text-indigo-600' : 'group-hover:text-indigo-500'}`}>
+                  {item.label}
+                </span>
+                {activeItem === item.id && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 transition-all duration-300"></span>
+                )}
+                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 transition-all duration-300 group-hover:w-full"></span>
+                
+                {item.dropdown && (
+                  <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                )}
+              </a>
+              
+              {/* Dropdown Menu */}
+              {item.dropdown && activeDropdown === item.id && (
+                <div 
+                  className="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 border border-gray-100 z-50"
+                  onMouseEnter={() => handleDropdownEnter(item.id)}
+                  onMouseLeave={handleDropdownLeave}
+                >
+                  {item.dropdown.map((dropdownItem) => (
+                    <a
+                      key={dropdownItem.id}
+                      href={`#${dropdownItem.id}`}
+                      className="block px-6 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-300"
+                    >
+                      {dropdownItem.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        {/* Right Side Actions */}
+        <div className="flex items-center space-x-4">
+          {/* Search Button and Bar */}
+          <div className="relative">
+            {searchOpen ? (
+              <div className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full pl-4 pr-10 py-2 flex items-center">
+                <form onSubmit={handleSearchSubmit} className="flex items-center">
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="outline-none w-40 text-gray-700"
+                    autoFocus
+                  />
+                  <button 
+                    type="button" 
+                    className="ml-2 text-gray-500 hover:text-indigo-600"
+                    onClick={() => setSearchOpen(false)}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            ) : (
+              <button 
+                className={`p-2 rounded-full transition-colors duration-300 ${scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+                onClick={toggleSearch}
+                aria-label="Search"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </button>
+            )}
+          </div>
+          
+          {/* Cart Button */}
+          <button 
+            className={`p-2 rounded-full transition-colors duration-300 relative ${scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'}`}
+            aria-label="Shopping cart"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+          </button>
+          
+          {/* Get a Quote Button */}
+          <button className="hidden md:flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-indigo-500/40 active:translate-y-0">
+            <span>Get a Quote</span>
+            <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+          
+          {/* Mobile Menu Button */}
+          <button 
+            className={`lg:hidden p-2 rounded-lg transition-colors duration-300 ${
+              scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
+            }`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            <div className="w-6 h-6 flex flex-col justify-center items-center relative">
+              <span className={`block absolute w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-0' : '-translate-y-1'}`}></span>
+              <span className={`block absolute w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+              <span className={`block absolute w-5 h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 translate-y-0' : 'translate-y-1'}`}></span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div className={`lg:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-xl rounded-b-lg overflow-hidden transition-all duration-500 ease-in-out ${mobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}>
+        <div className="py-4 px-6">
+          {navItems.map((item) => (
+            <div key={item.id}>
+              <a 
+                href={`#${item.id}`} 
+                className={`flex justify-between items-center py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-50 ${
+                  activeItem === item.id ? 'text-indigo-600 font-semibold bg-indigo-50' : 'text-gray-700'
+                }`}
+                onClick={() => {
+                  if (!item.dropdown) {
+                    handleItemClick(item.id);
+                  }
+                }}
+              >
+                <span>{item.label}</span>
+                {item.dropdown && (
+                  <svg 
+                    className="w-4 h-4 transition-transform duration-300" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                )}
+              </a>
+              
+              {/* Mobile Dropdown */}
+              {item.dropdown && (
+                <div className="pl-6 mt-1">
+                  {item.dropdown.map((dropdownItem) => (
+                    <a
+                      key={dropdownItem.id}
+                      href={`#${dropdownItem.id}`}
+                      className="block py-2 px-4 text-gray-600 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-300"
+                      onClick={() => handleItemClick(item.id)}
+                    >
+                      {dropdownItem.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+          
+          <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col space-y-3">
+            <button className="w-full py-3 text-center text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300">
+              Login
+            </button>
+            <button className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300">
+              Get a Quote
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;
