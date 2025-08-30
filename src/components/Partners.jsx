@@ -2,11 +2,19 @@
 import React, { useEffect, useState } from 'react';
 
 const Partners = () => {
-  const [isMounted, setIsMounted] = useState(false);
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-    return () => setIsMounted(false);
+    // Check if user prefers reduced motion
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(mediaQuery.matches);
+    
+    const handleChange = () => {
+      setIsReducedMotion(mediaQuery.matches);
+    };
+    
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   // Partners data with logos and names
@@ -75,52 +83,115 @@ const Partners = () => {
       ),
       color: 'text-orange-500'
     },
+    { 
+      name: 'Slack', 
+      logo: (
+        <svg className="w-20 h-10" viewBox="0 0 128 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M28 8C28 12.4183 24.4183 16 20 16C15.5817 16 12 12.4183 12 8C12 3.58172 15.5817 0 20 0C24.4183 0 28 3.58172 28 8Z" fill="#E01E5A"/>
+          <path d="M60 8C60 12.4183 56.4183 16 52 16C47.5817 16 44 12.4183 44 8C44 3.58172 47.5817 0 52 0C56.4183 0 60 3.58172 60 8Z" fill="#36C5F0"/>
+          <path d="M28 32C28 36.4183 24.4183 40 20 40C15.5817 40 12 36.4183 12 32C12 27.5817 15.5817 24 20 24C24.4183 24 28 27.5817 28 32Z" fill="#2EB67D"/>
+          <path d="M60 32C60 36.4183 56.4183 40 52 40C47.5817 40 44 36.4183 44 32C44 27.5817 47.5817 24 52 24C56.4183 24 60 27.5817 60 32Z" fill="#ECB22E"/>
+        </svg>
+      ),
+      color: 'text-yellow-500'
+    },
   ];
 
-  // Duplicate the partners for seamless looping
-  const duplicatedPartners = [...partners, ...partners];
+  // Duplicate the partners for seamless looping (only if not reduced motion)
+  const duplicatedPartners = isReducedMotion ? partners : [...partners, ...partners];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-20 bg-gradient-to-br from-indigo-50 via-white to-cyan-50 overflow-hidden relative">
+      {/* Simplified animated background elements */}
+      {!isReducedMotion && (
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+          {[...Array(5)].map((_, i) => (
+            <div 
+              key={i}
+              className="absolute rounded-full opacity-10"
+              style={{
+                width: `${60 + i * 20}px`,
+                height: `${60 + i * 20}px`,
+                top: `${10 + i * 15}%`,
+                left: `${5 + i * 10}%`,
+                background: `radial-gradient(circle, ${i % 3 === 0 ? '#6366F1' : i % 3 === 1 ? '#06B6D4' : '#8B5CF6'} 0%, transparent 70%)`,
+                animation: `float 20s ease-in-out infinite`,
+                animationDelay: `${i * 2}s`
+              }}
+            />
+          ))}
+        </div>
+      )}
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 relative inline-block">
             Trusted by Industry Leaders
+            <span className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            We partner with innovative companies worldwide to deliver exceptional solutions
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            We partner with the world's most innovative companies to deliver exceptional solutions
           </p>
         </div>
         
-        <div className="relative">
-          <div className="flex animate-scroll">
+        <div className="relative mb-20">
+          <div className={`flex ${isReducedMotion ? 'flex-wrap justify-center gap-8' : 'animate-scroll'}`}>
             {duplicatedPartners.map((partner, index) => (
               <div 
                 key={index} 
-                className="flex-shrink-0 px-8 flex flex-col items-center justify-center"
-                style={{ width: '280px' }}
+                className={`${isReducedMotion ? 'w-64' : 'flex-shrink-0 px-8'}`}
+                style={!isReducedMotion ? { width: '300px' } : {}}
               >
-                <div className={`transition-all duration-500 hover:scale-105 p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center justify-center h-40 w-full`}>
-                  <div className="mb-4 flex items-center justify-center h-12">
-                    {partner.logo}
+                <div className="transition-all duration-300 hover:scale-105 p-8 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl border border-white/50 flex flex-col items-center justify-center h-48 w-full relative overflow-hidden">
+                  {/* Hover effect background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-cyan-50 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  {/* Simplified animated border on hover */}
+                  {!isReducedMotion && (
+                    <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" 
+                           style={{ backgroundSize: '200% 200%' }}></div>
+                    </div>
+                  )}
+                  
+                  <div className="relative z-10">
+                    <div className="mb-5 flex items-center justify-center h-12 transform hover:scale-105 transition-transform duration-300">
+                      {partner.logo}
+                    </div>
+                    <p className={`text-lg font-semibold ${partner.color} mt-2 hover:translate-y-0.5 transition-transform duration-300`}>
+                      {partner.name}
+                    </p>
                   </div>
-                  <p className={`text-lg font-semibold ${partner.color} mt-2`}>
-                    {partner.name}
-                  </p>
                 </div>
               </div>
             ))}
           </div>
           
-          {/* Gradient fades for smooth edges */}
-          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-gray-50 to-transparent z-10"></div>
-          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-gray-50 to-transparent z-10"></div>
+          {/* Gradient fades for smooth edges (only when scrolling) */}
+          {!isReducedMotion && (
+            <>
+              <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-indigo-50 to-transparent z-10"></div>
+              <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-cyan-50 to-transparent z-10"></div>
+            </>
+          )}
         </div>
         
-        <div className="mt-16 text-center">
-          <button className="px-8 py-3.5 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-1">
-            Become a Partner
+        <div className="text-center relative">
+          <button className="relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group overflow-hidden">
+            <span className="relative z-10">Become a Partner</span>
+            
+            {/* Button hover effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-indigo-700 opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
+            
+            {/* Simplified shine effect */}
+            {!isReducedMotion && (
+              <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
+            )}
           </button>
+          
+          <p className="mt-6 text-gray-500 text-lg">
+            Join our growing network of industry leaders
+          </p>
         </div>
       </div>
       
@@ -130,13 +201,29 @@ const Partners = () => {
             transform: translateX(0);
           }
           100% {
-            transform: translateX(calc(-280px * ${partners.length}));
+            transform: translateX(calc(-300px * ${partners.length}));
+          }
+        }
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0) rotate(0deg);
+          }
+          50% {
+            transform: translateY(-20px) rotate(2deg);
+          }
+        }
+        @keyframes shine {
+          0% {
+            left: -100%;
+          }
+          100% {
+            left: 200%;
           }
         }
         .animate-scroll {
           animation: scroll 40s linear infinite;
           display: flex;
-          width: calc(280px * ${partners.length * 2});
+          width: calc(300px * ${partners.length * 2});
         }
         .animate-scroll:hover {
           animation-play-state: paused;
@@ -144,6 +231,14 @@ const Partners = () => {
         @media (max-width: 768px) {
           .animate-scroll {
             animation: scroll 30s linear infinite;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-scroll,
+          .animate-float,
+          .animate-border-rotate,
+          .animate-shine {
+            animation: none;
           }
         }
       `}</style>
