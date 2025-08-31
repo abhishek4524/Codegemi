@@ -1,6 +1,7 @@
 // components/Navbar.js
 import React, { useState, useEffect, useRef } from 'react';
 import { assets } from '../assets/assets';
+import { Link, useLocation } from 'react-router-dom'; // Import routing components
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -12,6 +13,13 @@ const Navbar = () => {
   const [expandedMobileItems, setExpandedMobileItems] = useState(new Set());
   const menuRef = useRef(null);
   const dropdownTimeoutRef = useRef(null);
+  const location = useLocation(); // Get current location
+
+  useEffect(() => {
+    // Set active item based on current path
+    const path = location.pathname.substring(1) || 'home';
+    setActiveItem(path);
+  }, [location]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,30 +62,6 @@ const Navbar = () => {
     };
   }, []);
 
-  // Smooth scroll to section
-  const scrollToSection = (id, event) => {
-    event.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const yOffset = -80; // Adjust for fixed header
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      
-      window.scrollTo({
-        top: y,
-        behavior: 'smooth'
-      });
-      
-      // Update URL without jumping
-      window.history.pushState(null, null, `#${id}`);
-    }
-  };
-
-  const handleItemClick = (item, event) => {
-    scrollToSection(item, event);
-    setActiveItem(item);
-    setMobileMenuOpen(false);
-  };
-
   const handleDropdownEnter = (dropdown) => {
     if (dropdownTimeoutRef.current) {
       clearTimeout(dropdownTimeoutRef.current);
@@ -114,45 +98,52 @@ const Navbar = () => {
     setExpandedMobileItems(newExpanded);
   };
 
+  // Updated navItems with page routes
   const navItems = [
     { 
       id: 'home', 
       label: 'Home',
+      path: '/'
+    },
+    { 
+      id: 'about', 
+      label: 'About',
+      path: '/about'
+    },
+    { 
+      id: 'blog', 
+      label: 'Blog',
+      path: '/blog'
     },
     { 
       id: 'services', 
       label: 'Services',
+      path: '/services',
       dropdown: [
-        { id: 'services-overview', label: 'Services Overview' },
-        { id: 'web-development', label: 'Web Development' },
-        { id: 'mobile-apps', label: 'Mobile Applications' },
-        { id: 'ui-ux-design', label: 'UI/UX Design' },
-        { id: 'cloud-solutions', label: 'Cloud Solutions' },
-        { id: 'devops', label: 'DevOps' },
+        { id: 'services-overview', label: 'Services Overview', path: '/services' },
+        { id: 'web-development', label: 'Web Development', path: '/services/web-development' },
+        { id: 'mobile-apps', label: 'Mobile Applications', path: '/services/mobile-apps' },
+        { id: 'ui-ux-design', label: 'UI/UX Design', path: '/services/ui-ux-design' },
+        { id: 'cloud-solutions', label: 'Cloud Solutions', path: '/services/cloud-solutions' },
+        { id: 'devops', label: 'DevOps', path: '/services/devops' },
       ]
     },
     { 
       id: 'solutions', 
       label: 'Solutions',
+      path: '/solutions',
       dropdown: [
-        { id: 'solutions-overview', label: 'Solutions Overview' },
-        { id: 'ecommerce', label: 'E-Commerce Solutions' },
-        { id: 'crm', label: 'CRM Solutions' },
-        { id: 'analytics', label: 'Data Analytics' },
-        { id: 'ai-ml', label: 'AI & Machine Learning' },
+        { id: 'solutions-overview', label: 'Solutions Overview', path: '/solutions' },
+        { id: 'ecommerce', label: 'E-Commerce Solutions', path: '/solutions/ecommerce' },
+        { id: 'crm', label: 'CRM Solutions', path: '/solutions/crm' },
+        { id: 'analytics', label: 'Data Analytics', path: '/solutions/analytics' },
+        { id: 'ai-ml', label: 'AI & Machine Learning', path: '/solutions/ai-ml' },
       ]
-    },
-    { 
-      id: 'blog', 
-      label: 'Blog',
-    },
-    { 
-      id: 'about', 
-      label: 'About',
     },
     { 
       id: 'contact', 
       label: 'Contact',
+      path: '/contact'
     },
   ];
 
@@ -169,13 +160,17 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center z-60">
-          <a href="#home" onClick={(e) => scrollToSection('home', e)} className="focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded">
+          <Link 
+            to="/" 
+            className="focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded"
+            onClick={() => setActiveItem('home')}
+          >
             <img 
               src={assets.CodeGemiLogofinal2} 
               alt="CodeGemi Logo" 
               className={`h-16 transition-all duration-500 ${scrolled ? 'h-14' : 'h-16'}`}
             />
-          </a>
+          </Link>
         </div>
         
         {/* Desktop Navigation */}
@@ -187,18 +182,12 @@ const Navbar = () => {
               onMouseEnter={() => item.dropdown && handleDropdownEnter(item.id)}
               onMouseLeave={handleDropdownLeave}
             >
-              <a 
-                href={`#${item.id}`} 
+              <Link 
+                to={item.path}
                 className={`relative px-4 py-2 font-medium transition-all duration-300 group focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded ${
                   scrolled ? 'text-gray-800' : 'text-white'
                 }`}
-                onClick={(e) => handleItemClick(item.id, e)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleItemClick(item.id, e);
-                  }
-                }}
+                onClick={() => setActiveItem(item.id)}
                 aria-haspopup={item.dropdown ? 'true' : undefined}
                 aria-expanded={item.dropdown && activeDropdown === item.id}
               >
@@ -211,11 +200,11 @@ const Navbar = () => {
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-indigo-400 transition-all duration-300 group-hover:w-full"></span>
                 
                 {item.dropdown && (
-                  <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 极 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-4 h-4 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                   </svg>
                 )}
-              </a>
+              </Link>
               
               {/* Dropdown Menu */}
               {item.dropdown && activeDropdown === item.id && (
@@ -227,16 +216,19 @@ const Navbar = () => {
                   aria-label={`${item.label} submenu`}
                 >
                   {item.dropdown.map((dropdownItem) => (
-                    <a
+                    <Link
                       key={dropdownItem.id}
-                      href={`#${dropdownItem.id}`}
+                      to={dropdownItem.path}
                       className="block px-6 py-3 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-300 focus:outline-none focus:bg-indigo-50 focus:text-indigo-600"
-                      onClick={(e) => scrollToSection(dropdownItem.id, e)}
+                      onClick={() => {
+                        setActiveItem(item.id);
+                        setActiveDropdown(null);
+                      }}
                       role="menuitem"
                       tabIndex="0"
                     >
                       {dropdownItem.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -288,7 +280,8 @@ const Navbar = () => {
           </div>
           
           {/* Cart Button */}
-          <button 
+          <Link 
+            to="/cart"
             className={`p-2 rounded-full transition-colors duration-300 relative focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
               scrolled ? 'text-gray-700 hover:bg-gray-100' : 'text-white hover:bg-white/10'
             }`}
@@ -298,15 +291,18 @@ const Navbar = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
             </svg>
             <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
-          </button>
+          </Link>
           
           {/* Get a Quote Button */}
-          <button className="hidden md:flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-indigo-500/40 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <Link 
+            to="/get-quote" 
+            className="hidden md:flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-indigo-500/40 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
             <span>Get a Quote</span>
             <svg className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
-          </button>
+          </Link>
           
           {/* Mobile Menu Button */}
           <button 
@@ -337,22 +333,19 @@ const Navbar = () => {
           {navItems.map((item) => (
             <div key={item.id}>
               <div className="flex justify-between items-center">
-                <a 
-                  href={`#${item.id}`} 
+                <Link 
+                  to={item.path}
                   className={`flex-1 py-3 px-4 rounded-lg transition-all duration-300 hover:bg-indigo-50 focus:outline-none focus:bg-indigo-50 ${
                     activeItem === item.id ? 'text-indigo-600 font-semibold bg-indigo-50' : 'text-gray-700'
                   }`}
-                  onClick={(e) => handleItemClick(item.id, e)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault();
-                      handleItemClick(item.id, e);
-                    }
+                  onClick={() => {
+                    setActiveItem(item.id);
+                    setMobileMenuOpen(false);
                   }}
                   tabIndex={mobileMenuOpen ? 0 : -1}
                 >
                   {item.label}
-                </a>
+                </Link>
                 {item.dropdown && (
                   <button 
                     className="p-3 text-gray-500 hover:text-indigo-600 focus:outline-none focus:text-indigo-600"
@@ -374,48 +367,45 @@ const Navbar = () => {
                 )}
               </div>
               
-              {/* Mobile Dropdown - Simplified */}
+              {/* Mobile Dropdown */}
               {item.dropdown && expandedMobileItems.has(item.id) && (
                 <div className="pl-6 mt-1">
-                  {item.dropdown.slice(0, 3).map((dropdownItem) => (
-                    <a
+                  {item.dropdown.map((dropdownItem) => (
+                    <Link
                       key={dropdownItem.id}
-                      href={`#${dropdownItem.id}`}
+                      to={dropdownItem.path}
                       className="block py-2 px-4 text-gray-600 rounded-lg hover:bg-indigo-50 hover:text-indigo-600 transition-colors duration-300 focus:outline-none focus:bg-indigo-50 focus:text-indigo-600"
-                      onClick={(e) => scrollToSection(dropdownItem.id, e)}
+                      onClick={() => {
+                        setActiveItem(item.id);
+                        setMobileMenuOpen(false);
+                      }}
                       tabIndex={mobileMenuOpen ? 0 : -1}
                     >
                       {dropdownItem.label}
-                    </a>
+                    </Link>
                   ))}
-                  {item.dropdown.length > 3 && (
-                    <a
-                      href="#services"
-                      className="block py-2 px-4 text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300 focus:outline-none focus:bg-indigo-50"
-                      onClick={(e) => scrollToSection('services', e)}
-                      tabIndex={mobileMenuOpen ? 0 : -1}
-                    >
-                      View all services →
-                    </a>
-                  )}
                 </div>
               )}
             </div>
           ))}
           
           <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col space-y-3">
-            <button 
+            <Link 
+              to="/login"
               className="w-full py-3 text-center text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300 focus:outline-none focus:bg-indigo-50"
+              onClick={() => setMobileMenuOpen(false)}
               tabIndex={mobileMenuOpen ? 0 : -1}
             >
               Login
-            </button>
-            <button 
-              className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            </Link>
+            <Link 
+              to="/get-quote"
+              className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center"
+              onClick={() => setMobileMenuOpen(false)}
               tabIndex={mobileMenuOpen ? 0 : -1}
             >
               Get a Quote
-            </button>
+            </Link>
           </div>
         </div>
       </div>
