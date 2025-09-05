@@ -129,18 +129,6 @@ const Navbar = () => {
       ]
     },
     { 
-      id: 'solutions', 
-      label: 'Solutions',
-      path: '/solutions',
-      dropdown: [
-        { id: 'solutions-overview', label: 'Solutions Overview', path: '/solutions' },
-        { id: 'ecommerce', label: 'E-Commerce Solutions', path: '/solutions/ecommerce' },
-        { id: 'crm', label: 'CRM Solutions', path: '/solutions/crm' },
-        { id: 'analytics', label: 'Data Analytics', path: '/solutions/analytics' },
-        { id: 'ai-ml', label: 'AI & Machine Learning', path: '/solutions/ai-ml' },
-      ]
-    },
-    { 
       id: 'contact', 
       label: 'Contact',
       path: '/contact'
