@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Award, Users, Rocket, Globe } from "lucide-react"; // lucide-react icons (you can change)
+import { Award, Users, Rocket, Globe, ArrowLeft, ArrowRight } from "lucide-react"; // lucide-react icons (you can change)
 import { motion } from "framer-motion";
+import { assets } from '../assets/assets';
 
 
 const clients = [
@@ -21,7 +22,13 @@ const About = () => {
   const [currentClientIndex, setCurrentClientIndex] = useState(0);
   const headerRef = useRef(null);
 
+  const [isVisible, setIsVisible] = useState(false);
 
+  useEffect(() => {
+    // Trigger animation after component mounts
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   
 const stats = [
@@ -164,7 +171,12 @@ const stats = [
       <Navbar />
       
       {/* Hero/Breadcrumb Section */}
-      <div className="relative bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-800 py-24 md:py-32 overflow-hidden min-h-screen flex items-center">
+<div
+  className="relative py-24 md:py-32 overflow-hidden min-h-screen flex items-center"
+  style={{ backgroundImage: `url(${assets.AboutusImage})`, backgroundSize: "cover", backgroundPosition: "center" }}
+>
+  {/* Gradient Overlay */}
+  <div className="absolute inset-0 bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-800 opacity-70"></div>
         {/* Animated background elements */}
         <div className="absolute inset-0 bg-black opacity-40"></div>
         
@@ -228,71 +240,87 @@ const stats = [
       {/* Image Section */}
       <div className="lg:w-1/2 mb-12 lg:mb-0 relative">
         {/* Experience Badge */}
-        <div className="absolute -top-6 -left-4 bg-white rounded-xl p-6 z-10 shadow-2xl transform hover:scale-105 transition-all duration-300 float-bob-y">
-          <div className="flex items-center">
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full p-3 mr-4 shadow-md">
-              <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-gray-800">
-                <span className="count text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">5+</span> Years <br />
-                <span className="text-sm font-normal text-gray-600">Of Excellence</span>
-              </h3>
-            </div>
-          </div>
-        </div>
         
         {/* Main Image */}
-        <div className="relative slide-in-left">
-          <div className="rounded-2xl overflow-hidden shadow-2xl zoom-in transform transition-all duration-700 hover:shadow-2xl">
-            <img 
-              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" 
-              alt="Our team working together" 
-              className="w-full h-auto transform hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-        </div>
+    <div className="relative max-w-4xl mx-auto">
+      {/* Main image container */}
+      <div className={`
+        relative rounded-2xl overflow-hidden 
+        shadow-2xl transform transition-all duration-1000 
+        hover:shadow-3xl ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-12 opacity-0'}
+      `}>
+        <img 
+          src={assets.AboutusImage2} 
+          alt="Our team collaborating in a modern office" 
+          className="w-full h-auto transform transition-transform duration-700 hover:scale-105"
+        />
         
-        {/* Floating Elements */}
-        <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg z-10 transform rotate-3 hover:rotate-0 transition-transform duration-300">
-          <div className="flex items-center">
-            <div className="bg-green-100 p-2 rounded-full mr-3">
-              <svg className="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <span className="text-sm font-semibold text-gray-700">150+ Projects</span>
+        {/* Overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-700 flex items-end p-6">
+          <div className="text-white">
+            <h3 className="text-xl font-semibold mb-1">Collaborative Teamwork</h3>
+            <p className="text-sm">Working together to achieve excellence</p>
           </div>
         </div>
+      </div>
+
+      {/* Secondary image */}
+      <div className={`
+        absolute -bottom-6 -right-4 w-2/5
+        rounded-2xl overflow-hidden shadow-2xl 
+        transform transition-all duration-1000
+        hover:shadow-3xl hover:-translate-y-2
+        ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}
+      `}>
+        <img 
+          src={assets.AboutusImage3} 
+          alt="Team discussion and planning" 
+          className="w-full h-auto transform transition-transform duration-700 hover:scale-105"
+        />
+        
+        {/* Floating indicator */}
+        <div className="absolute top-3 right-3 flex items-center justify-center w-8 h-8 rounded-full bg-white/90 shadow-md">
+          <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Decorative elements */}
+      <div className="absolute -z-10 top-6 -left-6 w-24 h-24 rounded-full bg-blue-100 opacity-70"></div>
+      <div className="absolute -z-10 bottom-10 -right-6 w-16 h-16 rounded-full bg-blue-200 opacity-50"></div>
+    </div>
+
       </div>
       
       {/* Content Section */}
       <div className="lg:w-1/2 lg:pl-16">
         <div className="mb-8">
-          <div className="inline-flex items-center text-blue-600 font-semibold mb-4 px-4 py-2 bg-blue-100 rounded-full">
-            <div className="h-2 w-2 bg-blue-600 rounded-full mr-2"></div>
-            <span>ABOUT CODEGEMI TECHNOLOGY</span>
-          </div>
+<div className="inline-flex items-center justify-center text-blue-600 font-semibold mb-4 px-6 py-2 bg-blue-100 rounded-full shadow-sm">
+  {/* Left Arrow */}
+  <ArrowLeft className="h-4 w-4 mr-3 text-blue-600" />
+
+  {/* Center Text */}
+  <span className="text-sm tracking-wide">
+    ABOUT CODEGEMI TECHNOLOGY
+  </span>
+
+  {/* Right Arrow */}
+  <ArrowRight className="h-4 w-4 ml-3 text-blue-600" />
+</div>
           <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-            We Transform Businesses with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Intelligent Solutions</span>
+            We are Increasing Business Success with Smart <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Technology</span>
           </h2>
         </div>
         
         <p className="text-gray-700 mb-8 text-lg leading-relaxed fade-in">
-          At CodeGemi, we're passionate about creating digital solutions that drive growth and innovation. 
-          Our team of experts combines technical excellence with creative thinking to deliver exceptional 
-          results for businesses of all sizes. We pride ourselves on building lasting partnerships and 
-          solutions that stand the test of time.
+Working with CodeGemi Solutions was an absolute pleasure. Their team is dedicated, professional, and consistently brings a positive, solutions-focused approach. For reliable and high-quality software solutions, I wholeheartedly recommend CodeGemi.
         </p>
         
         <div className="space-y-8 mb-10">
           <div className="flex items-start fade-in">
             <div className="bg-gradient-to-r from-blue-100 to-indigo-100 p-3 rounded-full mr-5 flex-shrink-0">
-              <svg className="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-              </svg>
+              <img src={assets.problemSolvingIcon} alt="Innovative Problem Solving" className="h-7 w-7 text-blue-600" />
             </div>
             <div>
               <h4 className="font-bold text-xl mb-2 text-gray-800">Innovative Problem Solving</h4>
@@ -304,9 +332,7 @@ const stats = [
           
           <div className="flex items-start fade-in">
             <div className="bg-gradient-to-r from-blue-100 to-indigo-100 p-3 rounded-full mr-5 flex-shrink-0">
-              <svg className="h-7 w-7 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
+              <img src={assets.mission} alt="Mission & Vision" className="h-7 w-7 text-blue-600" />
             </div>
             <div>
               <h4 className="font-bold text-xl mb-2 text-gray-800">Mission & Vision</h4>

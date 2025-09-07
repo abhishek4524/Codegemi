@@ -283,7 +283,7 @@ const Navbar = () => {
           
           {/* Get a Quote Button */}
           <Link 
-            to="/get-quote" 
+            to="/contact" 
             className="hidden md:flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 hover:from-indigo-700 hover:to-purple-700 shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:shadow-indigo-500/40 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             <span>Get a Quote</span>
@@ -387,7 +387,7 @@ const Navbar = () => {
               Login
             </Link>
             <Link 
-              to="/get-quote"
+              to="/contact"
               className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center"
               onClick={() => setMobileMenuOpen(false)}
               tabIndex={mobileMenuOpen ? 0 : -1}

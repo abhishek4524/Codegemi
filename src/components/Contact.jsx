@@ -163,11 +163,6 @@ const Contact = () => {
       `}</style>
       
       <div className="container mx-auto px-4">
-        {/* Animated background elements */}
-        <div className="absolute right-0 top-0 -z-10 transform translate-x-1/2 -translate-y-1/2">
-          <div className="bg-gradient-to-r from-purple-400 to-pink-400 opacity-20 blur-3xl w-96 h-96 rounded-full animate-float"></div>
-        </div>
-        
         <div className="absolute left-0 bottom-0 -z-10 transform -translate-x-1/2 translate-y-1/2">
           <div className="bg-gradient-to-r from-indigo-400 to-blue-400 opacity-20 blur-3xl w-80 h-80 rounded-full animate-float" style={{animationDelay: '2s'}}></div>
         </div>
@@ -361,53 +356,156 @@ const Contact = () => {
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-10 pointer-events-none"></div>
               </div>
             </div>
-            
-            {/* Contact Info */}
-            <div ref={infoRef} className="bg-white rounded-2xl shadow-lg p-6 relative overflow-hidden opacity-0 gradient-border">
-              <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-indigo-600 to-purple-600"></div>
-              <h2 className="text-2xl font-bold text-gray-800 mb-6 animate-fade-in-up">Contact Info</h2>
-              
-              <div className="space-y-4">
-                <div className="flex items-start animate-fade-in-up animate-delay-100 transform transition-all duration-300 hover:translate-x-2">
-                  <div className="bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Address</h3>
-                    <p className="text-gray-600">Gregory Cartwright, 4059<br />Carling Avenue, Ugglebarnby</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start animate-fade-in-up animate-delay-200 transform transition-all duration-300 hover:translate-x-2">
-                  <div className="bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Phone</h3>
-                    <a href="tel:+61086660112" className="text-indigo-600 hover:text-indigo-800 transition-colors">+6108-666-0112</a>
-                  </div>
-                </div>
-                
-                <div className="flex items-start animate-fade-in-up animate-delay-300 transform transition-all duration-300 hover:translate-x-2">
-                  <div className="bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800">Email</h3>
-                    <a href="mailto:infotech@gmail.com" className="text-indigo-600 hover:text-indigo-800 transition-colors">Infotech@gmail.com</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div
+      ref={infoRef}
+      className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 relative overflow-hidden gradient-border opacity-0 transition-opacity duration-700"
+      style={{
+        fontFamily: "'Inter', sans-serif",
+      }}
+    >
+      <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-indigo-600 to-purple-600"></div>
+      
+      <h2 className="text-2xl font-bold text-gray-800 mb-8 section-title">Contact Information</h2>
+      
+      <div className="space-y-6">
+        <div className="flex items-start contact-item animate-fade-in-up">
+          <div className="icon-container bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
+            <i className="fas fa-map-marker-alt text-indigo-600 text-lg"></i>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-1">Address</h3>
+            <p className="text-gray-600">Gregory Cartwright<br />4059 Carling Avenue<br />Ugglebarnby, YO21 2BJ</p>
           </div>
         </div>
+        
+        <div className="flex items-start contact-item animate-fade-in-up animate-delay-200">
+          <div className="icon-container bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
+            <i className="fas fa-phone text-indigo-600 text-lg"></i>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-1">Phone</h3>
+            <a href="tel:+61086660112" className="text-indigo-600 hover:text-indigo-800 transition-colors font-medium">+61 (08) 6660-112</a>
+          </div>
+        </div>
+        
+        <div className="flex items-start contact-item animate-fade-in-up animate-delay-300">
+          <div className="icon-container bg-gradient-to-br from-indigo-100 to-purple-100 p-3 rounded-lg mr-4 flex-shrink-0">
+            <i className="fas fa-envelope text-indigo-600 text-lg"></i>
+          </div>
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-1">Email</h3>
+            <a href="mailto:contact@infotech.com" className="text-indigo-600 hover:text-indigo-800 transition-colors font-medium">contact@infotech.com</a>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+        
+        .gradient-border {
+          position: relative;
+          z-index: 1;
+        }
+        
+        .gradient-border::before {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          right: -2px;
+          bottom: -2px;
+          background: linear-gradient(45deg, #4f46e5, #8b5cf6, #ec4899);
+          border-radius: 24px;
+          z-index: -1;
+          animation: border-pulse 3s ease-in-out infinite;
+        }
+        
+        .gradient-border::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: 22px;
+          background: white;
+          z-index: -1;
+        }
+        
+        @keyframes border-pulse {
+          0%, 100% { opacity: 0.8; }
+          50% { opacity: 0.4; }
+        }
+        
+        .animate-fade-in-up {
+          animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .animate-delay-200 {
+          animation-delay: 0.2s;
+        }
+        
+        .animate-delay-300 {
+          animation-delay: 0.3s;
+        }
+        
+        .animate-delay-400 {
+          animation-delay: 0.4s;
+        }
+        
+        .animate-delay-500 {
+          animation-delay: 0.5s;
+        }
+        
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        .contact-item {
+          transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+          transform: translateY(-4px);
+        }
+        
+        .icon-container {
+          transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover .icon-container {
+          transform: scale(1.1);
+          background: linear-gradient(135deg, #4f46e5, #8b5cf6);
+        }
+        
+        .contact-item:hover .icon-container i {
+          color: white;
+        }
+        
+        .section-title {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .section-title::after {
+          content: '';
+          position: absolute;
+          bottom: -8px;
+          left: 0;
+          width: 40px;
+          height: 3px;
+          background: linear-gradient(to right, #4f46e5, #8b5cf6);
+          border-radius: 3px;
+        }
+      `}</style>
+    </div> 
+    </div> 
+    </div> 
       </div>
     </div>
   );

@@ -42,7 +42,7 @@ const About = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-900/50 to-transparent"></div>
               </div>
               
-              <div className="absolute -bottom-6 -right-6 w-40 h-40 bg-white rounded-lg shadow-xl p-3 transform transition-all duration-700 hover:scale-110 hover:rotate-3">
+              <div className="z-10 absolute -bottom-6 -right-6 w-40 h-40 bg-white rounded-lg shadow-xl p-3 transform transition-all duration-700 hover:scale-110 hover:rotate-3">
                 <img 
                   src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" 
                   alt="Technology innovation" 
@@ -50,7 +50,7 @@ const About = () => {
                 />
               </div>
               
-              <div className="absolute top-10 -left-6 bg-white rounded-lg p-4 shadow-xl transform transition-all duration-700 hover:-translate-y-2">
+              <div className="z-10 absolute top-10 -left-6 bg-white rounded-lg p-4 shadow-xl transform transition-all duration-700 hover:-translate-y-2">
                 <div className="flex items-center justify-center w-16 h-16 bg-blue-100 rounded-lg">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />

@@ -13,6 +13,7 @@ import { assets } from '../assets/assets';
 import Team from '../components/Team';
 import Contact from '../components/Contact';
 import Blog from '../components/Blog';
+import VideoWithTransition from '../components/VideoWithTransition';
 
 const Home = () => {
   return (
@@ -26,12 +27,7 @@ const Home = () => {
       <Solution />
       <Phases />
       <Challenges />
-      <div style={{ marginTop: '2em' }}>
-        <video autoPlay muted loop style={{ objectFit: 'cover', width: '100%', height: '100%' }}>
-          <source src={assets.TuringIntroVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      <VideoWithTransition />
       <Team />
       <Contact />
       <Blog />

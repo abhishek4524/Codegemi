@@ -33,7 +33,7 @@ const Solution = () => {
             <div className="flex flex-col lg:flex-row items-center gap-10">
               <div className="w-full lg:w-1/2">
                 <div className="text-center lg:text-left">
-                  <div className="inline-flex items-center mb-4 px-4 py-2 rounded-full bg-white bg-opacity-20 text-white text-sm font-medium animate-pulse">
+                  <div className="inline-flex items-center mb-4 px-4 py-2 rounded-full text-blue-800 bg-white bg-opacity-20 text-sm font-medium animate-pulse">
                     <span className="mr-2">✨</span> How we do
                   </div>
                   
@@ -45,25 +45,26 @@ const Solution = () => {
                     We don't believe in a one-size-fit-all approach. Our services are carefully customized to suit your specific needs, ensuring you achieve your goals efficiently and effectively.
                   </p>
 
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a href="/contact" className="group relative inline-flex items-center justify-center px-6 py-3 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-lg hover:ring-1 hover:ring-purple-500">
-                      <span className="absolute inset-0 w-full h-full bg-gradient-to-br from-white to-indigo-100"></span>
-                      <span className="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-indigo-500 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
-                      <span className="relative">HOW IT WORKS</span>
-                      <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </a>
-                    
-                    <a href="/services" className="group inline-flex items-center justify-center px-6 py-3 font-medium text-white transition duration-300 ease-out rounded-full hover:bg-white hover:bg-opacity-15 border border-white border-opacity-30">
-                      <span>OUR SERVICES</span>
-                      <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <a href="/contact" class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-lg hover:ring-1 hover:ring-purple-500 button">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-white to-indigo-100"></span>
+                    <span class="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-indigo-500 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
+                    <span class="relative">HOW IT WORKS</span>
+                    <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>             
+                <a href="/services" class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-medium text-indigo-600 transition duration-300 ease-out rounded-full shadow-lg hover:ring-1 hover:ring-purple-500 button">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-white to-indigo-100"></span>
+                    <span class="absolute bottom-0 right-0 block w-64 h-64 mb-32 mr-4 transition duration-500 origin-bottom-left transform rotate-45 translate-x-24 bg-indigo-500 rounded-full opacity-30 group-hover:rotate-90 ease"></span>
+                    <span class="relative">OUR SERVICES</span>
+                    <svg class="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        </div>
               
               <div className="w-full lg:w-1/2 flex justify-center">
                 <div className="relative max-w-md">
@@ -76,10 +77,10 @@ const Solution = () => {
                   </div>
                   
                   {/* Floating elements */}
-                  <div className="absolute -top-4 -left-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20 animate-bounce-slow"></div>
-                  <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-green-400 rounded-full opacity-20 animate-pulse-slow"></div>
+                  <div className="z-20 absolute -top-4 -left-4 w-24 h-24 bg-yellow-400 rounded-full opacity-20 animate-bounce-slow"></div>
+                  <div className="z-20 absolute -bottom-4 -right-4 w-20 h-20 bg-green-400 rounded-full opacity-20 animate-pulse-slow"></div>
                   
-                  <div className="absolute top-1/2 -right-6 transform -translate-y-1/2 bg-white rounded-lg shadow-lg p-3 animate-float">
+                  <div className="z-20 absolute top-1/2 -right-6 transform -translate-y-1/2 bg-white rounded-lg shadow-lg p-3 animate-float">
                     <div className="flex items-center">
                       <div className="w-3 h-3 bg-green-400 rounded-full mr-2"></div>
                       <span className="text-xs font-semibold text-gray-700">24/7 Support</span>
