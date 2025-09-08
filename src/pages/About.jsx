@@ -234,13 +234,20 @@ const stats = [
       </div>
 
       {/* About Section */}
-<section className="py-16 md:py-24 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+<section 
+className="py-16 md:py-24 px-4 bg-gradient-to-br from-blue-50 to-indigo-50"
+ style={{ backgroundImage: `url(${assets.serviceBg})`, backgroundSize: "cover", backgroundPosition: "center" }}
+>
   <div className="container mx-auto max-w-6xl">
     <div className="flex flex-col lg:flex-row items-center">
       {/* Image Section */}
       <div className="lg:w-1/2 mb-12 lg:mb-0 relative">
         {/* Experience Badge */}
-        
+        <img 
+          src={assets.circle} 
+          alt="Experience Badge" 
+          className="absolute -top-12 -right-12 w-30 h-30 rounded-full flex items-center justify-center p-2 z-20 animate-bounce"
+        />
         {/* Main Image */}
     <div className="relative max-w-4xl mx-auto">
       {/* Main image container */}

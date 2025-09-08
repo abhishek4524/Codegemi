@@ -56,10 +56,6 @@ const About = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <div className="mt-2 text-center">
-                  <span className="text-blue-600 font-bold text-sm">10+ Years</span>
-                  <p className="text-xs text-gray-600">Experience</p>
-                </div>
               </div>
             </div>
           </div>
