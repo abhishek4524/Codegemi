@@ -7,6 +7,7 @@ import BlogGrid from './pages/BlogGrid';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Cart from './pages/Cart';
+import ServiceDetail from './pages/ServiceDetail';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/services/:id" element={<ServiceDetail />} />
       </Routes>
     </div>
   );
