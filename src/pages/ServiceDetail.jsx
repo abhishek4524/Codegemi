@@ -2,13 +2,15 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import ServiceHero from '../components/ServiceHero';
 
-// Define your services data
+// Updated services data with better images
 const services = [
   {
     id: 1,
     title: "Software Development",
     icon: "https://cdn-icons-png.flaticon.com/512/1006/1006363.png",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Custom software solutions tailored to your business needs and goals.",
     fullDescription: "Our software development services provide end-to-end solutions for your business needs. We specialize in creating scalable, maintainable applications using the latest technologies and best practices. From initial concept to deployment and maintenance, we ensure your software delivers maximum value.",
     features: [
@@ -24,6 +26,7 @@ const services = [
     id: 2,
     title: "Application Development",
     icon: "https://cdn-icons-png.flaticon.com/512/2920/2920244.png",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Native and cross-platform mobile applications with intuitive UX/UI.",
     fullDescription: "We build responsive and user-friendly applications for both iOS and Android platforms. Our focus is on creating seamless user experiences that drive engagement and conversion. Our apps are performance-optimized and follow platform-specific design guidelines.",
     features: [
@@ -39,6 +42,7 @@ const services = [
     id: 3,
     title: "RPA Workflow Automation",
     icon: "https://cdn-icons-png.flaticon.com/512/3144/3144456.png",
+    image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Automate repetitive tasks to increase efficiency and reduce errors.",
     fullDescription: "Our Robotic Process Automation services help businesses automate repetitive, rule-based tasks to improve accuracy and free up your team for higher-value work. We identify automation opportunities and implement tailored solutions.",
     features: [
@@ -54,6 +58,7 @@ const services = [
     id: 4,
     title: "Web Development",
     icon: "https://cdn-icons-png.flaticon.com/512/1329/1329016.png",
+    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Responsive, modern websites that convert visitors into customers.",
     fullDescription: "We create stunning, high-performance websites that not only look great but also drive conversions. Our web development approach combines cutting-edge technology with conversion rate optimization principles.",
     features: [
@@ -69,6 +74,7 @@ const services = [
     id: 5,
     title: "Graphic Design",
     icon: "https://cdn-icons-png.flaticon.com/512/4727/4727338.png",
+    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Visually compelling designs that communicate your brand story.",
     fullDescription: "Our graphic design services help you establish a strong visual identity that resonates with your target audience. We create designs that not only look beautiful but also effectively communicate your message.",
     features: [
@@ -84,6 +90,7 @@ const services = [
     id: 6,
     title: "IT Management",
     icon: "https://cdn-icons-png.flaticon.com/512/4325/4325005.png",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Comprehensive IT infrastructure management and support services.",
     fullDescription: "Our IT management services ensure your technology infrastructure is reliable, secure, and aligned with your business objectives. We provide end-to-end IT support and strategic guidance.",
     features: [
@@ -99,6 +106,7 @@ const services = [
     id: 7,
     title: "Digital Marketing",
     icon: "https://cdn-icons-png.flaticon.com/512/1055/1055662.png",
+    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f5a07a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Data-driven strategies to increase your online presence and growth.",
     fullDescription: "Our digital marketing services leverage data and creativity to drive growth and maximize ROI. We develop comprehensive strategies tailored to your business goals and target audience.",
     features: [
@@ -114,6 +122,7 @@ const services = [
     id: 8,
     title: "Data Analysis",
     icon: "https://cdn-icons-png.flaticon.com/512/3594/3594435.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Transform your data into actionable insights for business decisions.",
     fullDescription: "Our data analysis services help you unlock the value in your data. We use advanced analytics techniques to uncover patterns, trends, and insights that drive informed decision-making.",
     features: [
@@ -142,6 +151,7 @@ const ServiceDetail = () => {
     return (
       <div className="font-sans min-h-screen flex flex-col bg-gray-50">
         <Navbar />
+        <ServiceHero />
         <div className="container mx-auto px-4 py-20 flex-grow flex items-center justify-center">
           <div className="text-center max-w-md mx-auto">
             <div className="bg-white p-8 rounded-2xl shadow-lg">
@@ -165,10 +175,11 @@ const ServiceDetail = () => {
       </div>
     );
   }
-
+  
   return (
     <div className="font-sans min-h-screen flex flex-col bg-gray-50">
       <Navbar />
+        <ServiceHero />
       
       <div className="container mx-auto px-4 py-20 flex-grow">
         <button 
@@ -183,16 +194,24 @@ const ServiceDetail = () => {
         
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-12">
           <div className="md:flex">
-            <div className="md:flex-shrink-0 md:w-2/5 flex items-center justify-center p-12 bg-gradient-to-br from-blue-50 to-indigo-50">
-              <div className="text-center">
-                <div className="inline-flex items-center justify-center w-32 h-32 bg-white rounded-2xl shadow-lg p-6 mb-6">
-                  <img src={service.icon} alt={service.title} className="h-20 w-20 object-contain" />
+            {/* Updated image section with full image */}
+            <div className="md:w-2/5 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent z-10"></div>
+              <img 
+                src={service.image} 
+                alt={service.title} 
+                className="w-full h-full object-cover min-h-[400px]"
+              />
+              <div className="absolute bottom-6 left-6 z-20 text-white">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl p-3 mb-4 border border-white/30">
+                  <img src={service.icon} alt={service.title} className="h-10 w-10 object-contain" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-800">{service.title}</h2>
-                <p className="text-gray-600 mt-2">{service.description}</p>
+                <h2 className="text-2xl font-bold">{service.title}</h2>
+                <p className="text-white/90 mt-2">{service.description}</p>
               </div>
             </div>
-            <div className="p-10">
+            
+            <div className="p-10 md:w-3/5">
               <h1 className="text-4xl font-bold text-gray-800 mb-6">About Our {service.title} Service</h1>
               <p className="text-gray-700 text-lg leading-relaxed mb-8">{service.fullDescription}</p>
               
@@ -243,15 +262,22 @@ const ServiceDetail = () => {
               .map(relatedService => (
                 <div 
                   key={relatedService.id} 
-                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer"
+                  className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
                   onClick={() => navigate(`/services/${relatedService.id}`)}
                 >
+                  <div className="h-40 overflow-hidden">
+                    <img 
+                      src={relatedService.image} 
+                      alt={relatedService.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <div className="p-6">
-                    <div className="flex items-center justify-center w-16 h-16 bg-blue-50 rounded-xl mb-4">
+                    <div className="flex items-center justify-center w-16 h-16 bg-blue-50 rounded-xl mb-4 -mt-12 relative z-10 mx-auto shadow-md">
                       <img src={relatedService.icon} alt={relatedService.title} className="h-10 w-10 object-contain" />
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">{relatedService.title}</h3>
-                    <p className="text-gray-600 text-sm">{relatedService.description}</p>
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2 text-center">{relatedService.title}</h3>
+                    <p className="text-gray-600 text-sm text-center">{relatedService.description}</p>
                   </div>
                 </div>
               ))}
