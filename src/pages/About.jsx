@@ -13,7 +13,7 @@ const clients = [
   { name: "Meta", logo: "https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" },
   { name: "Netflix", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
   { name: "Tesla", logo: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg" },
-  { name: "Adobe", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Adobe_Corporate_Logo.png" },
+  { name: "Adobe", logo: "https://logos-world.net/wp-content/uploads/2023/07/Adobe-Logo-New.png" },
   { name: "Spotify", logo: "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg" }
 ];
 
