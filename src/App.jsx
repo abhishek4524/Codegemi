@@ -8,10 +8,15 @@ import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Cart from './pages/Cart';
 import ServiceDetail from './pages/ServiceDetail';
+import ScrollToTop from "./components/ScrollToTop";
+import LoginPage from './pages/Login';
+import HireMe from './pages/Signup';
+import AuthPage from './pages/DevLogin';
 
 function App() {
   return (
     <div className="w-full h-full ">
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
@@ -20,6 +25,9 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/services/:id" element={<ServiceDetail />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<HireMe />} />
+        <Route path="/developer/login" element={<AuthPage />} />
       </Routes>
     </div>
   );

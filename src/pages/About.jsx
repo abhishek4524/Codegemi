@@ -4,6 +4,7 @@ import Footer from '../components/Footer';
 import { Award, Users, Rocket, Globe, ArrowLeft, ArrowRight } from "lucide-react"; // lucide-react icons (you can change)
 import { motion } from "framer-motion";
 import { assets } from '../assets/assets';
+import { Link } from 'react-router-dom';  
 
 
 const clients = [
@@ -109,8 +110,9 @@ const stats = [
   }, []);
 
 
-  const services = [
+const services = [
   {
+    id: 4,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -120,6 +122,7 @@ const stats = [
     description: "Custom websites and web applications built with modern technologies for optimal performance and user experience."
   },
   {
+    id: 2,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -129,6 +132,7 @@ const stats = [
     description: "Cross-platform mobile applications that deliver seamless experiences on both iOS and Android devices."
   },
   {
+    id: 5,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -138,6 +142,7 @@ const stats = [
     description: "User-centered designs that enhance engagement, improve usability, and drive conversions."
   },
   {
+    id: 7,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -147,6 +152,7 @@ const stats = [
     description: "Data-driven marketing strategies that increase visibility, engagement, and customer acquisition."
   },
   {
+    id: 6,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -156,6 +162,7 @@ const stats = [
     description: "Complete online store development with secure payment integration and inventory management."
   },
   {
+    id: 8,
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
@@ -393,7 +400,7 @@ Working with CodeGemi Solutions was an absolute pleasure. Their team is dedicate
       </p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+ <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {services.map((service, index) => (
         <div 
           key={index} 
@@ -412,12 +419,12 @@ Working with CodeGemi Solutions was an absolute pleasure. Their team is dedicate
           <div className="relative">
             <h5 className="font-bold text-xl mb-4 text-gray-800 group-hover:text-gray-900 transition-colors duration-300">{service.title}</h5>
             <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">{service.description}</p>
-            <a href="/services" className="text-blue-600 font-semibold flex items-center group/link">
+            <Link to={`/services/${service.id}`} className="text-blue-600 font-semibold flex items-center group/link">
               <span className="mr-2">Learn More</span>
               <svg className="w-5 h-5 ml-1 group-hover/link:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
-            </a>
+            </Link>
           </div>
           
           {/* Number badge */}
@@ -744,49 +751,6 @@ Working with CodeGemi Solutions was an absolute pleasure. Their team is dedicate
     </div>
   );
 };
-
-// Data for services
-const services = [
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>,
-    title: "Web Development",
-    description: "Custom websites and web applications built with modern technologies for optimal performance."
-  },
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
-    title: "Mobile App Development",
-    description: "Native and cross-platform mobile applications for iOS and Android devices."
-  },
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>,
-    title: "Software Development",
-    description: "Custom software solutions tailored to your specific business needs and requirements."
-  },
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-    title: "RPA Automation",
-    description: "Robotic Process Automation solutions to streamline your business processes."
-  },
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" /></svg>,
-    title: "Cloud Solutions",
-    description: "Scalable cloud infrastructure and migration services for businesses of all sizes."
-  },
-  {
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>,
-    title: "UI/UX Design",
-    description: "User-centered design solutions that enhance engagement and conversion rates."
-  }
-];
-
-// Data for stats
-const stats = [
-  { value: 50, plus: true, label: "Projects Completed" },
-  { value: 25, plus: true, label: "Happy Clients" },
-  { value: 10, plus: true, label: "Team Members" },
-  { value: 2, plus: true, label: "Years Experience" }
-];
-
 // Data for projects
 const projects = [
   {

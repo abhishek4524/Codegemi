@@ -1,5 +1,6 @@
 // components/Partners.js
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Partners = () => {
   const [isReducedMotion, setIsReducedMotion] = useState(false);
@@ -177,7 +178,7 @@ const Partners = () => {
         </div>
         
         <div className="text-center relative">
-          <button className="relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group overflow-hidden">
+          <Link to="/contact" className="relative px-10 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-xl hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group overflow-hidden">
             <span className="relative z-10">Become a Partner</span>
             
             {/* Button hover effect */}
@@ -187,7 +188,7 @@ const Partners = () => {
             {!isReducedMotion && (
               <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white opacity-40 group-hover:animate-shine" />
             )}
-          </button>
+          </Link>
           
           <p className="mt-6 text-gray-500 text-lg">
             Join our growing network of industry leaders
