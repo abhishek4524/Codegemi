@@ -1,4 +1,3 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -10,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/krishi-sakhi', {
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/codegemi', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -24,15 +23,15 @@ db.once('open', () => {
 // Import routes
 const authRoutes = require('./routes/auth');
 const profileRoutes = require('./routes/profile');
-const dashboardRoutes = require('./routes/dashboard');
+const contactRoutes = require('./routes/contactRoutes'); // Add contact routes
 
 app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/contact', contactRoutes); // Use contact routes
 
 // Health Check
 app.get('/', (req, res) => {
-  res.send('Krishi Sakhi Backend is running');
+  res.send('Codegemi Backend is running');
 });
 
 const PORT = process.env.PORT || 5000;

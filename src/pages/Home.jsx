@@ -14,6 +14,7 @@ import Team from '../components/Team';
 import Contact from '../components/Contact';
 import Blog from '../components/Blog';
 import VideoWithTransition from '../components/VideoWithTransition';
+import FloatingSidebar from '../components/FloatingSidebar';
 
 const Home = () => {
   return (
@@ -32,6 +33,7 @@ const Home = () => {
       <Contact />
       <Blog />
       <Footer />
+      <FloatingSidebar />
     </div>
   )
 }

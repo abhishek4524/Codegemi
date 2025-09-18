@@ -149,7 +149,7 @@ const Services = () => {
                       </Link>
                     </h4>
                     <Link
-                      to={`/services/${service.id}`} // Changed from href to to
+                      to={`/services/${service.id}`}
                       className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-md hover:from-blue-600 hover:to-purple-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group-hover:scale-105 hover:shadow-blue-300/30"
                     >
                       Read More
@@ -398,16 +398,16 @@ const Services = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="block mb-2 font-medium">Message*</label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="How can we help you?"
-                    rows="5"
-                    className="w-full px-5 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300 shadow-md"
-                    required
-                  ></textarea>
+                    <label className="block mb-2 font-medium">Message*</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="How can we help you?"
+                      rows="5"
+                      className="w-full px-5 py-4 rounded-xl text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300 shadow-md"
+                      required
+                    ></textarea>
                 </div>
                 <button
                   type="submit"
@@ -500,7 +500,7 @@ const Services = () => {
   );
 };
 
-// Data for services
+// Data for services - Updated with the four new services
 const services = [
   {
     id: 1,
@@ -557,6 +557,34 @@ const services = [
     icon: "https://cdn-icons-png.flaticon.com/512/3594/3594435.png",
     description:
       "Transform your data into actionable insights for business decisions.",
+  },
+  {
+    id: 9,
+    title: "AI Solutions",
+    icon: "https://cdn-icons-png.flaticon.com/512/2103/2103833.png",
+    description:
+      "Intelligent AI systems to automate processes and enhance decision-making.",
+  },
+  {
+    id: 10,
+    title: "Data Science",
+    icon: "https://cdn-icons-png.flaticon.com/512/3749/3749832.png",
+    description:
+      "Advanced analytics and machine learning to extract valuable insights from data.",
+  },
+  {
+    id: 11,
+    title: "Robotics",
+    icon: "https://cdn-icons-png.flaticon.com/512/3344/3344405.png",
+    description:
+      "Cutting-edge robotic solutions for industrial automation and innovation.",
+  },
+  {
+    id: 12,
+    title: "Drone Technologies",
+    icon: "https://cdn-icons-png.flaticon.com/512/3594/3594573.png",
+    description:
+      "Aerial imaging, surveying, and monitoring solutions using advanced drone technology.",
   },
 ];
 

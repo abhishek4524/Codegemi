@@ -134,6 +134,70 @@ const services = [
       "Custom reporting solutions"
     ]
   },
+  {
+    id: 9,
+    title: "AI Solutions",
+    icon: "https://cdn-icons-png.flaticon.com/512/2103/2103833.png",
+    image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    description: "Intelligent AI systems to automate processes and enhance decision-making.",
+    fullDescription: "Our AI solutions leverage cutting-edge machine learning and artificial intelligence technologies to transform your business operations. We develop intelligent systems that learn, adapt, and provide valuable insights to drive innovation and efficiency.",
+    features: [
+      "Machine learning model development",
+      "Natural language processing (NLP)",
+      "Computer vision solutions",
+      "Predictive analytics and forecasting",
+      "AI-powered chatbots and virtual assistants",
+      "Custom AI algorithm development"
+    ]
+  },
+  {
+    id: 10,
+    title: "Data Science",
+    icon: "https://cdn-icons-png.flaticon.com/512/3749/3749832.png",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    description: "Advanced analytics and machine learning to extract valuable insights from data.",
+    fullDescription: "Our data science services help you harness the power of your data through advanced statistical analysis, machine learning, and predictive modeling. We transform complex data into actionable intelligence that drives strategic decision-making.",
+    features: [
+      "Advanced statistical analysis",
+      "Machine learning implementation",
+      "Big data processing and analytics",
+      "Predictive modeling and forecasting",
+      "Data mining and pattern recognition",
+      "Custom data science solutions"
+    ]
+  },
+  {
+    id: 11,
+    title: "Robotics",
+    icon: "https://cdn-icons-png.flaticon.com/512/3344/3344405.png",
+    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    description: "Cutting-edge robotic solutions for industrial automation and innovation.",
+    fullDescription: "Our robotics services provide innovative automation solutions that enhance productivity, precision, and safety. We design and implement robotic systems tailored to your specific industry needs, from manufacturing to healthcare.",
+    features: [
+      "Industrial robot integration",
+      "Automated manufacturing systems",
+      "Robotic process automation (RPA)",
+      "Autonomous mobile robots",
+      "Robotic vision systems",
+      "Custom robotic solutions development"
+    ]
+  },
+  {
+    id: 12,
+    title: "Drone Technologies",
+    icon: "https://cdn-icons-png.flaticon.com/512/3594/3594573.png",
+    image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    description: "Aerial imaging, surveying, and monitoring solutions using advanced drone technology.",
+    fullDescription: "Our drone technology services leverage unmanned aerial vehicles for a wide range of applications, from aerial photography and surveying to infrastructure inspection and monitoring. We provide end-to-end drone solutions that deliver accurate data and insights.",
+    features: [
+      "Aerial photography and videography",
+      "Surveying and mapping services",
+      "Infrastructure inspection",
+      "Agricultural monitoring and analysis",
+      "Search and rescue operations",
+      "Custom drone application development"
+    ]
+  },
 ];
 
 const ServiceDetail = () => {

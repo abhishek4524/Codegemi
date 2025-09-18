@@ -54,20 +54,57 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add submission animation
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    if (submitBtn) {
-      submitBtn.classList.add('animate-pulse');
-      setTimeout(() => {
-        submitBtn.classList.remove('animate-pulse');
-      }, 1000);
-    }
+  // Add this function to your Contact component
+const submitForm = async (formData) => {
+  try {
+    const response = await fetch('http://localhost:5000/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
     
-    // Handle form submission here
-    console.log(formData);
-  };
+    const data = await response.json();
+    
+    if (data.success) {
+      // Show success message
+      alert('Message sent successfully!');
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        subject: 'subject',
+        message: '',
+        agree: false
+      });
+    } else {
+      // Show error message
+      alert(`Error: ${data.message}`);
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert('An error occurred. Please try again later.');
+  }
+};
+
+// Update your handleSubmit function
+const handleSubmit = (e) => {
+  e.preventDefault();
+  
+  // Add submission animation
+  const submitBtn = e.target.querySelector('button[type="submit"]');
+  if (submitBtn) {
+    submitBtn.classList.add('animate-pulse');
+    setTimeout(() => {
+      submitBtn.classList.remove('animate-pulse');
+    }, 1000);
+  }
+  
+  // Submit the form
+  submitForm(formData);
+};
 
   return (
     <div className="contact-section bg-gradient-to-b from-gray-50 to-white py-20 overflow-hidden">

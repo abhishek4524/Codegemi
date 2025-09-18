@@ -158,13 +158,7 @@ const Navbar = () => {
           label: "Mobile Applications",
           path: "/services/2",
         },
-        { id: "ui-ux-design", label: "UI/UX Design", path: "/services/5" },
-        {
-          id: "cloud-solutions",
-          label: "Cloud Solutions",
-          path: "/services/8",
-        },
-        { id: "devops", label: "DevOps", path: "/services/6" },
+        { id: "ui-ux-design", label: "UI/UX Design", path: "/services/5" }
       ],
     },
     {
