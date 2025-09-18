@@ -12,6 +12,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import LoginPage from './pages/Login';
 import HireMe from './pages/Signup';
 import AuthPage from './pages/DevLogin';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<HireMe />} />
         <Route path="/developer/login" element={<AuthPage />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </div>
   );

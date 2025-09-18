@@ -1,11 +1,14 @@
-import { i } from 'framer-motion/client';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isFocused, setIsFocused] = useState({ email: false, password: false });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleFocus = (field) => {
     setIsFocused({ ...isFocused, [field]: true });
@@ -15,9 +18,34 @@ const LoginPage = () => {
     setIsFocused({ ...isFocused, [field]: false });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
+    setLoading(true);
+    setError('');
+
+    try {
+      // Send login request to backend
+      const response = await axios.post('http://localhost:5000/api/auth/login', {
+        email,
+        password
+      });
+      
+      // Save token to localStorage
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      alert('Login successful!');
+      console.log('User logged in:', response.data);
+      
+      // Redirect to dashboard or home page
+      navigate('/');
+      
+    } catch (err) {
+      setError(err.response?.data?.error || 'Login failed. Please try again.');
+      console.error('Login error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,6 +81,13 @@ const LoginPage = () => {
             <p className="text-gray-600 mt-2 text-sm md:text-base">Where developers and companies connect</p>
           </div>
 
+          {/* Error message */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 text-sm">
+              {error}
+            </div>
+          )}
+
           {/* Navigation */}
           <div className="flex justify-evenly space-x-6 mb-6 border-b pb-4">
             <button className="font-medium text-blue-600 hover:text-blue-800 relative group text-sm md:text-base">
@@ -77,6 +112,7 @@ const LoginPage = () => {
                 onFocus={() => handleFocus('email')}
                 onBlur={() => handleBlur('email')}
                 className="w-full px-4 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                required
               />
             </div>
 
@@ -93,6 +129,7 @@ const LoginPage = () => {
                 onFocus={() => handleFocus('password')}
                 onBlur={() => handleBlur('password')}
                 className="w-full px-4 pt-5 pb-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                required
               />
             </div>
 
@@ -115,9 +152,10 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:-translate-y-0.5 transition-all duration-300 shadow-md hover:shadow-lg"
+              disabled={loading}
+              className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white font-medium rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:-translate-y-0.5 transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign in
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
 
             <div className="relative my-4">
@@ -149,7 +187,7 @@ const LoginPage = () => {
               © 2025 Codegemi. All rights reserved.
             </p>
             <p className="mt-2 text-xs text-gray-500">
-              Don't have an account? <a href="/signup" className="font-medium text-blue-600 hover:text-blue-800 transition-colors duration-300">Hire now</a>
+              Don't have an account? <Link to="/signup" className="font-medium text-blue-600 hover:text-blue-800 transition-colors duration-300">Hire now</Link>
             </p>
           </div>
         </div>

@@ -259,39 +259,6 @@ const Contact = () => {
                 </div>
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="floating-label animate-fade-in-up animate-delay-300">
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="floating-input w-full px-4 py-3 bg-gray-50 rounded-lg input-focus-effect transition-all"
-                    placeholder=" "
-                  />
-                  <label htmlFor="phone" className="floating-label-text">Phone Number</label>
-                </div>
-                
-                <div className="animate-fade-in-up animate-delay-400">
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all input-focus-effect"
-                  >
-                    <option value="subject">Select a subject</option>
-                    <option value="complain">Complain</option>
-                    <option value="greetings">Greetings</option>
-                    <option value="date">Expire Date</option>
-                    <option value="price">About Price</option>
-                    <option value="order">About order</option>
-                  </select>
-                </div>
-              </div>
-              
               <div className="animate-fade-in-up animate-delay-500">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
                 <textarea

@@ -1,7 +1,7 @@
 // components/Navbar.js
 import React, { useState, useEffect, useRef } from "react";
 import { assets } from "../assets/assets";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -11,9 +11,28 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedMobileItems, setExpandedMobileItems] = useState(new Set());
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userData, setUserData] = useState(null);
   const menuRef = useRef(null);
   const dropdownTimeoutRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is logged in
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    
+    if (token) {
+      setIsLoggedIn(true);
+      if (user) {
+        setUserData(JSON.parse(user));
+      }
+    } else {
+      setIsLoggedIn(false);
+      setUserData(null);
+    }
+  }, [location]); // Re-check on route change
 
   useEffect(() => {
     const path = location.pathname.substring(1) || "home";
@@ -58,6 +77,15 @@ const Navbar = () => {
       }
     };
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUserData(null);
+    navigate('/');
+    setMobileMenuOpen(false);
+  };
 
   const handleDropdownEnter = (dropdown) => {
     if (dropdownTimeoutRef.current) {
@@ -361,32 +389,60 @@ const Navbar = () => {
             <span>Get a Quote</span>
           </Link>
 
-          {/* Login Button for Desktop */}
-<Link
-  to="/login"
-  className={`hidden md:flex items-center px-5 py-2.5 font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
-    scrolled
-      ? "bg-indigo-50 text-indigo-600 hover:bg-indigo-100 shadow-sm"
-      : "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-  }`}
->
-  <svg 
-    className="w-4 h-4 mr-2" 
-    fill="none" 
-    stroke="currentColor" 
-    viewBox="0 0 24 24" 
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path 
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
-      strokeWidth="2" 
-      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-    ></path>
-  </svg>
-  Login
-</Link>
-
+          {/* User Profile or Login Button */}
+          {isLoggedIn ? (
+            <div className="relative hidden md:block">
+              <button
+                className={`p-2 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                  scrolled
+                    ? "text-gray-700 hover:bg-gray-100"
+                    : "text-white hover:bg-white/10"
+                }`}
+                onClick={() => navigate('/profile')}
+                aria-label="User profile"
+              >
+                <svg
+                  className="w-9 h-9 border rounded-full p-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className={`hidden md:flex items-center px-5 py-2.5 font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                scrolled
+                  ? "bg-indigo-50 text-indigo-600 hover:bg-indigo-100 shadow-sm"
+                  : "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
+              }`}
+            >
+              <svg 
+                className="w-4 h-4 mr-2" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                ></path>
+              </svg>
+              Login
+            </Link>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -497,14 +553,34 @@ const Navbar = () => {
           ))}
 
           <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col space-y-3">
-            <Link
-              to="/login"
-              className="w-full py-3 text-center text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300 focus:outline-none focus:bg-indigo-50"
-              onClick={() => setMobileMenuOpen(false)}
-              tabIndex={mobileMenuOpen ? 0 : -1}
-            >
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <>
+                <Link
+                  to="/profile"
+                  className="w-full py-3 text-center text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300 focus:outline-none focus:bg-indigo-50"
+                  onClick={() => setMobileMenuOpen(false)}
+                  tabIndex={mobileMenuOpen ? 0 : -1}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="w-full py-3 text-center text-red-600 font-medium rounded-lg hover:bg-red-50 transition-colors duration-300 focus:outline-none focus:bg-red-50"
+                  tabIndex={mobileMenuOpen ? 0 : -1}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="w-full py-3 text-center text-indigo-600 font-medium rounded-lg hover:bg-indigo-50 transition-colors duration-300 focus:outline-none focus:bg-indigo-50"
+                onClick={() => setMobileMenuOpen(false)}
+                tabIndex={mobileMenuOpen ? 0 : -1}
+              >
+                Login
+              </Link>
+            )}
             <Link
               to="/contact"
               className="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-center"

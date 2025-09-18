@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const HireMe = () => {
   const [step, setStep] = useState(1);
@@ -9,8 +10,13 @@ const HireMe = () => {
     name: '',
     email: '',
     phone: '',
-    hiringNeeds: 'Full-time'
+    hiringNeeds: 'Full-time',
+    password: '', // Add password field
+    timezone: 'India Standard Time (IST)',
+    guests: []
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const skillCategories = [
     {
@@ -67,10 +73,47 @@ const HireMe = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Form submission logic would go here
-    alert('Form submitted successfully!');
+    setLoading(true);
+    setError('');
+
+    try {
+      // Prepare data for registration
+      const registrationData = {
+        ...formData,
+        skills: selectedSkills,
+        meetingDate: selectedDate ? new Date(2025, 8, selectedDate) : null, // September is month 8 (0-indexed)
+        meetingTime: selectedTime
+      };
+
+      // Send registration request to backend
+      const response = await axios.post('http://localhost:5000/api/auth/register', registrationData);
+      
+      alert('Registration successful!');
+      console.log('User registered:', response.data);
+      
+      // Reset form or redirect user
+      setStep(1);
+      setSelectedSkills([]);
+      setSelectedDate(null);
+      setSelectedTime(null);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        hiringNeeds: 'Full-time',
+        password: '',
+        timezone: 'India Standard Time (IST)',
+        guests: []
+      });
+      
+    } catch (err) {
+      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+      console.error('Registration error:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -137,6 +180,12 @@ const HireMe = () => {
           </div>
           
           <div className="md:w-3/5 p-8">
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {error}
+              </div>
+            )}
+            
             {step === 1 && (
               <div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">Let's find your developers</h2>
@@ -180,7 +229,7 @@ const HireMe = () => {
                 
                 <div className="space-y-4 mb-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Your work email</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Your work email *</label>
                     <input 
                       type="email" 
                       placeholder="name@company.com" 
@@ -188,6 +237,7 @@ const HireMe = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       name="email"
+                      required
                     />
                   </div>
                   
@@ -208,11 +258,28 @@ const HireMe = () => {
                       />
                     </div>
                   </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+                    <input 
+                      type="password" 
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      name="password"
+                      required
+                    />
+                  </div>
                 </div>
                 
                 <button
                   onClick={() => setStep(2)}
-                  className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg"
+                  disabled={!formData.email || !formData.password}
+                  className={`w-full py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all shadow-md hover:shadow-lg ${
+                    formData.email && formData.password
+                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white hover:from-purple-700 hover:to-indigo-700'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
                 >
                   Continue to Scheduling
                 </button>
@@ -260,7 +327,12 @@ const HireMe = () => {
                 
                 <div className="mb-6">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Time zone</label>
-                  <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent">
+                  <select 
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                    value={formData.timezone}
+                    onChange={handleInputChange}
+                    name="timezone"
+                  >
                     <option>India Standard Time (IST)</option>
                     <option>Pacific Standard Time (PST)</option>
                     <option>Eastern Standard Time (EST)</option>
@@ -331,6 +403,7 @@ const HireMe = () => {
                       type="text" 
                       placeholder="Add email" 
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                      onChange={(e) => setFormData({...formData, guests: [e.target.value]})}
                     />
                   </div>
                   
@@ -378,9 +451,10 @@ const HireMe = () => {
                     </button>
                     <button
                       type="submit"
-                      className="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-md hover:shadow-lg transition-all"
+                      disabled={loading}
+                      className="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 shadow-md hover:shadow-lg transition-all disabled:opacity-50"
                     >
-                      Schedule Meeting
+                      {loading ? 'Processing...' : 'Schedule Meeting'}
                     </button>
                   </div>
                 </form>
