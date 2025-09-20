@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import { assets } from "../assets/assets"; // Add this import
 
 const Services = () => {
   const [activeFaq, setActiveFaq] = useState(null);
@@ -30,11 +31,97 @@ const Services = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form submission logic would go here
     alert("Thank you for your message! We will get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
   };
 
+  // Updated service data with local asset images
+  const services = [
+    {
+      id: 1,
+      title: "Software Development",
+      icon: assets.SoftwareDevelopments_HOMEPAGEICON,
+      description:
+        "Custom software solutions tailored to your business needs and goals.",
+    },
+    {
+      id: 2,
+      title: "Application Development",
+      icon: assets.ApplicationDevelopments_HOMEPAGEICON,
+      description:
+        "Native and cross-platform mobile applications with intuitive UX/UI.",
+    },
+    {
+      id: 3,
+      title: "RPA Workflow Automation",
+      icon: assets.RPAICONServicePage,
+      description:
+        "Automate repetitive tasks to increase efficiency and reduce errors.",
+    },
+    {
+      id: 4,
+      title: "Web Development",
+      icon: assets.WebDevelopments_HOMEPAGEICON,
+      description:
+        "Responsive, modern websites that convert visitors into customers.",
+    },
+    {
+      id: 5,
+      title: "Graphic Design",
+      icon: assets.CodeGemiLogofinal2, // Use your logo or any relevant image
+      description:
+        "Visually compelling designs that communicate your brand story.",
+    },
+    {
+      id: 6,
+      title: "IT Management",
+      icon: assets.ITConsultingIcon,
+      description:
+        "Comprehensive IT infrastructure management and support services.",
+    },
+    {
+      id: 7,
+      title: "Digital Marketing",
+      icon: assets.Cloud_HOMEPAGEICON, // Use cloud icon as a placeholder
+      description:
+        "Data-driven strategies to increase your online presence and growth.",
+    },
+    {
+      id: 8,
+      title: "Data Analysis",
+      icon: assets.DataAnalyticsIcon,
+      description:
+        "Transform your data into actionable insights for business decisions.",
+    },
+    {
+      id: 9,
+      title: "AI Solutions",
+      icon: assets.UipathAutomation_HOMEPAGEICON, // Use UiPath icon as a placeholder
+      description:
+        "Intelligent AI systems to automate processes and enhance decision-making.",
+    },
+    {
+      id: 10,
+      title: "Data Science",
+      icon: assets.DataAnalysis_HOMEPAGE, // Use DataAnalysis image
+      description:
+        "Advanced analytics and machine learning to extract valuable insights from data.",
+    },
+    {
+      id: 11,
+      title: "Robotics",
+      icon: assets.RPAICONServicePage1, // Use RPA icon as a placeholder
+      description:
+        "Cutting-edge robotic solutions for industrial automation and innovation.",
+    },
+    {
+      id: 12,
+      title: "Drone Technologies",
+      icon: assets.Cybersecurityicon, // Use cybersecurity icon as a placeholder
+      description:
+        "Aerial imaging, surveying, and monitoring solutions using advanced drone technology.",
+    },
+  ];
   return (
     <div className="font-sans overflow-hidden">
       <Navbar />

@@ -3,14 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ServiceHero from '../components/ServiceHero';
+import { assets } from '../assets/assets'; // Add this import
 
-// Updated services data with better images
+// Updated services data with local asset images where available
 const services = [
   {
     id: 1,
     title: "Software Development",
-    icon: "https://cdn-icons-png.flaticon.com/512/1006/1006363.png",
-    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.SoftwareDevelopments_HOMEPAGEICON,
+    image: assets.SoftwareDevelopments_HOMEPAGE,
     description: "Custom software solutions tailored to your business needs and goals.",
     fullDescription: "Our software development services provide end-to-end solutions for your business needs. We specialize in creating scalable, maintainable applications using the latest technologies and best practices. From initial concept to deployment and maintenance, we ensure your software delivers maximum value.",
     features: [
@@ -25,8 +26,8 @@ const services = [
   {
     id: 2,
     title: "Application Development",
-    icon: "https://cdn-icons-png.flaticon.com/512/2920/2920244.png",
-    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.ApplicationDevelopments_HOMEPAGEICON,
+    image: assets.ApplicationDevelopments_HOMEPAGE,
     description: "Native and cross-platform mobile applications with intuitive UX/UI.",
     fullDescription: "We build responsive and user-friendly applications for both iOS and Android platforms. Our focus is on creating seamless user experiences that drive engagement and conversion. Our apps are performance-optimized and follow platform-specific design guidelines.",
     features: [
@@ -41,8 +42,8 @@ const services = [
   {
     id: 3,
     title: "RPA Workflow Automation",
-    icon: "https://cdn-icons-png.flaticon.com/512/3144/3144456.png",
-    image: "https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.RPAICONServicePage,
+    image: assets.RPAWorkFolwServicepage,
     description: "Automate repetitive tasks to increase efficiency and reduce errors.",
     fullDescription: "Our Robotic Process Automation services help businesses automate repetitive, rule-based tasks to improve accuracy and free up your team for higher-value work. We identify automation opportunities and implement tailored solutions.",
     features: [
@@ -57,8 +58,8 @@ const services = [
   {
     id: 4,
     title: "Web Development",
-    icon: "https://cdn-icons-png.flaticon.com/512/1329/1329016.png",
-    image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.WebDevelopments_HOMEPAGEICON,
+    image: assets.WebDevelopments_HOMEPAGE,
     description: "Responsive, modern websites that convert visitors into customers.",
     fullDescription: "We create stunning, high-performance websites that not only look great but also drive conversions. Our web development approach combines cutting-edge technology with conversion rate optimization principles.",
     features: [
@@ -73,8 +74,8 @@ const services = [
   {
     id: 5,
     title: "Graphic Design",
-    icon: "https://cdn-icons-png.flaticon.com/512/4727/4727338.png",
-    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.graphicdesignservicespage,
+    image: assets.graphicdesignservicespage,
     description: "Visually compelling designs that communicate your brand story.",
     fullDescription: "Our graphic design services help you establish a strong visual identity that resonates with your target audience. We create designs that not only look beautiful but also effectively communicate your message.",
     features: [
@@ -89,8 +90,8 @@ const services = [
   {
     id: 6,
     title: "IT Management",
-    icon: "https://cdn-icons-png.flaticon.com/512/4325/4325005.png",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.ITConsultingIcon,
+    image: assets.ITconsulting_HOMEPAGE,
     description: "Comprehensive IT infrastructure management and support services.",
     fullDescription: "Our IT management services ensure your technology infrastructure is reliable, secure, and aligned with your business objectives. We provide end-to-end IT support and strategic guidance.",
     features: [
@@ -105,8 +106,8 @@ const services = [
   {
     id: 7,
     title: "Digital Marketing",
-    icon: "https://cdn-icons-png.flaticon.com/512/1055/1055662.png",
-    image: "https://images.unsplash.com/photo-1432888622747-4eb9a8f5a07a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.DigitalMarketingservicespage,
+    image: assets.DigitalMarketingservicespage,
     description: "Data-driven strategies to increase your online presence and growth.",
     fullDescription: "Our digital marketing services leverage data and creativity to drive growth and maximize ROI. We develop comprehensive strategies tailored to your business goals and target audience.",
     features: [
@@ -121,8 +122,8 @@ const services = [
   {
     id: 8,
     title: "Data Analysis",
-    icon: "https://cdn-icons-png.flaticon.com/512/3594/3594435.png",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.DataAnalyticsIcon,
+    image: assets.DataAnalysis_HOMEPAGE,
     description: "Transform your data into actionable insights for business decisions.",
     fullDescription: "Our data analysis services help you unlock the value in your data. We use advanced analytics techniques to uncover patterns, trends, and insights that drive informed decision-making.",
     features: [
@@ -137,8 +138,8 @@ const services = [
   {
     id: 9,
     title: "AI Solutions",
-    icon: "https://cdn-icons-png.flaticon.com/512/2103/2103833.png",
-    image: "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.AiSolutionservicepage,
+    image: assets.AiSolutionservicepage1,
     description: "Intelligent AI systems to automate processes and enhance decision-making.",
     fullDescription: "Our AI solutions leverage cutting-edge machine learning and artificial intelligence technologies to transform your business operations. We develop intelligent systems that learn, adapt, and provide valuable insights to drive innovation and efficiency.",
     features: [
@@ -153,8 +154,8 @@ const services = [
   {
     id: 10,
     title: "Data Science",
-    icon: "https://cdn-icons-png.flaticon.com/512/3749/3749832.png",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.DataScienceservicepage,
+    image: assets.DataScienceservicepage,
     description: "Advanced analytics and machine learning to extract valuable insights from data.",
     fullDescription: "Our data science services help you harness the power of your data through advanced statistical analysis, machine learning, and predictive modeling. We transform complex data into actionable intelligence that drives strategic decision-making.",
     features: [
@@ -169,8 +170,8 @@ const services = [
   {
     id: 11,
     title: "Robotics",
-    icon: "https://cdn-icons-png.flaticon.com/512/3344/3344405.png",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    icon: assets.RoboticesServicepage,
+    image: assets.RoboticesServicepage,
     description: "Cutting-edge robotic solutions for industrial automation and innovation.",
     fullDescription: "Our robotics services provide innovative automation solutions that enhance productivity, precision, and safety. We design and implement robotic systems tailored to your specific industry needs, from manufacturing to healthcare.",
     features: [
@@ -185,6 +186,7 @@ const services = [
   {
     id: 12,
     title: "Drone Technologies",
+    // No local icon/image found, keep original URLs
     icon: "https://cdn-icons-png.flaticon.com/512/3594/3594573.png",
     image: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     description: "Aerial imaging, surveying, and monitoring solutions using advanced drone technology.",
@@ -199,6 +201,7 @@ const services = [
     ]
   },
 ];
+
 
 const ServiceDetail = () => {
   const { id } = useParams();

@@ -21,18 +21,27 @@ import Cloud_HOMEPAGEICON from './Cloud.HOMEPAGEICON.png';
 import CyberSecurity_HOMEPAGE from './CyberSecurity.HOMEPAGE.jpeg';
 import Cybersecurityicon from './Cybersecurityicon.png';
 import DataAnalysis_HOMEPAGE from './DataAnalysis.HOMEPAGE.jpeg';
+import DataAnalysisServicespage from './DataAnalysisServicespage.jpeg';
 import DataAnalyticsIcon from './DataAnalytics Icon.png';
+import DataScienceservicepage from './DataScienceservicepage.jpeg';
+import DigitalMarketingservicespage from './DigitalMarketingservicespage.jpeg';
+import graphicdesignservicespage from './graphicdesignservicespage.jpeg';
 import ITconsulting_HOMEPAGE from './ITconsulting.HOMEPAGE.jpeg';
 import ITConsultingIcon from './ITConsultingIcon.png';
 import RPAICONServicePage from './RPAICONServicePage.png';
 import RPAICONServicePage1 from './RPAICONServicePage1.png';
+import RPAWorkFolwServicepage from './RPAWorkFolwServicepage.jpg';
 import SoftwareDevelopments_HOMEPAGE from './SoftwareDevelopments.HOMEPAGE.jpeg';
 import SoftwareDevelopments_HOMEPAGEICON from './SoftwareDevelopments.HOMEPAGE ICON.png';
+import SoftwareDevelopmentsServicepage from './SoftwareDevelopmentsServicepage.webp';
 import UipathAutomation_HOMEPAGE from './UipathAutomation.HOMEPAGE.png';
 import UipathAutomation_HOMEPAGEICON from './UipathAutomation.HOMEPAGEICON.jpeg';
 import UipathAutomation_HOMEPAGEICON1 from './UipathAutomation.HOMEPAGEICON1.png';
 import WebDevelopments_HOMEPAGE from './WebDevelopments.HOMEPAGE.jpeg';
 import WebDevelopments_HOMEPAGEICON from './WebDevelopments.HOMEPAGEICON.png';
+import AiSolutionservicepage from './AiSolutionservicepage.jpeg';
+import AiSolutionservicepage1 from './AiSolutionservicepage1.jpeg';
+import RoboticesServicepage from './RoboticesServicepage.jpeg';
 
 // Logos (optional, if needed)
 import CodeGemiLogo from './img/CodeGemiLogo.png';
@@ -65,18 +74,27 @@ export const assets = {
   CyberSecurity_HOMEPAGE,
   Cybersecurityicon,
   DataAnalysis_HOMEPAGE,
+  DataAnalysisServicespage,
   DataAnalyticsIcon,
+  DataScienceservicepage,
+  DigitalMarketingservicespage,
+  graphicdesignservicespage,
   ITconsulting_HOMEPAGE,
   ITConsultingIcon,
   RPAICONServicePage,
   RPAICONServicePage1,
+  RPAWorkFolwServicepage,
   SoftwareDevelopments_HOMEPAGE,
   SoftwareDevelopments_HOMEPAGEICON,
+  SoftwareDevelopmentsServicepage,
   UipathAutomation_HOMEPAGE,
   UipathAutomation_HOMEPAGEICON,
   UipathAutomation_HOMEPAGEICON1,
   WebDevelopments_HOMEPAGE,
   WebDevelopments_HOMEPAGEICON,
+  AiSolutionservicepage,
+  AiSolutionservicepage1,
+  RoboticesServicepage,
 
   // Logos (optional)
   CodeGemiLogo,
