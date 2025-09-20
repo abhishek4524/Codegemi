@@ -11,6 +11,7 @@ const AuthPage = () => {
     skills: ''
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,12 +54,77 @@ const AuthPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  // Dummy user data for demonstration
+  const dummyUsers = [
+    { 
+      email: 'demo@example.com', 
+      password: 'anypassword', 
+      name: 'Demo User',
+      username: 'demo_user',
+      skills: 'JavaScript, React, Node.js'
+    },
+    { 
+      email: 'test@test.com', 
+      password: 'test123', 
+      name: 'Test User',
+      username: 'test_user',
+      skills: 'Python, Django, PostgreSQL'
+    }
+  ];
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      // Handle form submission
-      console.log('Form submitted:', formData);
-      alert(isLogin ? 'Login successful!' : 'Account created successfully!');
+    if (!validateForm()) return;
+    
+    setLoading(true);
+    
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    try {
+      if (isLogin) {
+        // Check against dummy data for login
+        const user = dummyUsers.find(u => u.email === formData.email && u.password === formData.password);
+        
+        if (user) {
+          // Save dummy token and user data to localStorage
+          localStorage.setItem('token', 'dummy-auth-token');
+          localStorage.setItem('user', JSON.stringify({
+            id: 1,
+            name: user.name,
+            email: user.email,
+            username: user.username,
+            skills: user.skills,
+            role: 'developer'
+          }));
+          
+          alert('Login successful! (Demo mode)');
+          console.log('User logged in (demo):', user);
+        } else {
+          throw new Error('Invalid email or password');
+        }
+      } else {
+        // For signup, just create a dummy user
+        const newUser = {
+          name: formData.name,
+          email: formData.email,
+          username: formData.username,
+          skills: formData.skills,
+          id: Date.now() // Generate a unique ID
+        };
+        
+        // Save dummy token and user data to localStorage
+        localStorage.setItem('token', 'dummy-auth-token-new');
+        localStorage.setItem('user', JSON.stringify(newUser));
+        
+        alert('Account created successfully! (Demo mode)');
+        console.log('New user created (demo):', newUser);
+      }
+    } catch (err) {
+      alert(err.message || 'Authentication failed. Please try again.');
+      console.error('Auth error:', err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -265,9 +331,10 @@ const AuthPage = () => {
             
             <button
               type="submit"
-              className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg mt-6 font-medium hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              disabled={loading}
+              className="w-full bg-indigo-600 text-white py-3 px-4 rounded-lg mt-6 font-medium hover:bg-indigo-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLogin ? 'Sign in' : 'Create account'}
+              {loading ? 'Processing...' : isLogin ? 'Sign in' : 'Create account'}
             </button>
           </form>
           
@@ -275,6 +342,9 @@ const AuthPage = () => {
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-400">
                 Demo Login: try <span className="text-indigo-400">demo@example.com</span> / <span className="text-indigo-400">anypassword</span>
+              </p>
+              <p className="text-sm text-gray-400 mt-1">
+                Or try <span className="text-indigo-400">test@test.com</span> / <span className="text-indigo-400">test123</span>
               </p>
             </div>
           )}

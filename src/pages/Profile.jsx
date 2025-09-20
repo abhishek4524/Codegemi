@@ -10,20 +10,30 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserProfile = () => {
       try {
-        const token = localStorage.getItem('token');
-        const userData = localStorage.getItem('user'); // ✅ Corrected
-        
-        if (!token) {
-          setError('No authentication token found. Please log in.');
-          setLoading(false);
-          navigate('/login');
-          return;
-        }
+        // Check if user data exists in localStorage
+        const userData = localStorage.getItem('user');
         
         if (userData) {
+          // Use the stored user data
           setUser(JSON.parse(userData));
         } else {
-          setError('User data not found. Please log in again.');
+          // Create dummy user data for demonstration
+          const dummyUser = {
+            id: 1,
+            name: 'Demo User',
+            email: 'user@example.com',
+            phone: '+1 (555) 123-4567',
+            hiringNeeds: 'Full-stack developers with React and Node.js experience',
+            meetingDate: '2023-12-15',
+            meetingTime: '14:30',
+            timezone: 'EST (Eastern Standard Time)',
+            skills: ['React', 'JavaScript', 'Node.js', 'UI/UX Design'],
+            guests: ['CTO', 'Lead Developer', 'HR Manager']
+          };
+          
+          setUser(dummyUser);
+          // Store the dummy data for future use
+          localStorage.setItem('user', JSON.stringify(dummyUser));
         }
       } catch (err) {
         setError('Failed to load profile data.');

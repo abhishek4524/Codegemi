@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const HireMe = () => {
   const [step, setStep] = useState(1);
@@ -17,6 +16,7 @@ const HireMe = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const skillCategories = [
     {
@@ -77,39 +77,47 @@ const HireMe = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccess(false);
 
     try {
-      // Prepare data for registration
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Prepare data for registration (dummy data)
       const registrationData = {
         ...formData,
         skills: selectedSkills,
         meetingDate: selectedDate ? new Date(2025, 8, selectedDate) : null, // September is month 8 (0-indexed)
-        meetingTime: selectedTime
+        meetingTime: selectedTime || '12:30 AM'
       };
 
-      // Send registration request to backend
-      const response = await axios.post('http://localhost:5000/api/auth/register', registrationData);
+      // Simulate successful registration
+      console.log('User registered (demo):', registrationData);
       
-      alert('Registration successful!');
-      console.log('User registered:', response.data);
+      // Show success message
+      setSuccess(true);
+      alert('Registration successful! (Demo mode)');
       
-      // Reset form or redirect user
-      setStep(1);
-      setSelectedSkills([]);
-      setSelectedDate(null);
-      setSelectedTime(null);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        hiringNeeds: 'Full-time',
-        password: '',
-        timezone: 'India Standard Time (IST)',
-        guests: []
-      });
+      // Reset form after successful submission
+      setTimeout(() => {
+        setStep(1);
+        setSelectedSkills([]);
+        setSelectedDate(null);
+        setSelectedTime(null);
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          hiringNeeds: 'Full-time',
+          password: '',
+          timezone: 'India Standard Time (IST)',
+          guests: []
+        });
+        setSuccess(false);
+      }, 2000);
       
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed. Please try again.');
+      setError(err.message || 'Registration failed. Please try again.');
       console.error('Registration error:', err);
     } finally {
       setLoading(false);
@@ -183,6 +191,12 @@ const HireMe = () => {
             {error && (
               <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                 {error}
+              </div>
+            )}
+            
+            {success && (
+              <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                Registration successful! Redirecting...
               </div>
             )}
             

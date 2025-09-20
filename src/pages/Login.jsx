@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -18,30 +17,45 @@ const LoginPage = () => {
     setIsFocused({ ...isFocused, [field]: false });
   };
 
+  // Dummy user data for demonstration
+  const dummyUsers = [
+    { email: 'user@example.com', password: 'password123', name: 'Demo User' },
+    { email: 'test@test.com', password: 'test123', name: 'Test User' }
+  ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
+    // Simulate API call delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     try {
-      // Send login request to backend
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        email,
-        password
-      });
+      // Check against dummy data
+      const user = dummyUsers.find(u => u.email === email && u.password === password);
       
-      // Save token to localStorage
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      
-      alert('Login successful!');
-      console.log('User logged in:', response.data);
-      
-      // Redirect to dashboard or home page
-      navigate('/');
+      if (user) {
+        // Save dummy token and user data to localStorage
+        localStorage.setItem('token', 'dummy-auth-token');
+        localStorage.setItem('user', JSON.stringify({
+          id: 1,
+          name: user.name,
+          email: user.email,
+          role: 'customer'
+        }));
+        
+        alert('Login successful! (Demo mode)');
+        console.log('User logged in (demo):', user);
+        
+        // Redirect to dashboard or home page
+        navigate('/');
+      } else {
+        throw new Error('Invalid email or password');
+      }
       
     } catch (err) {
-      setError(err.response?.data?.error || 'Login failed. Please try again.');
+      setError(err.message || 'Login failed. Please try again.');
       console.error('Login error:', err);
     } finally {
       setLoading(false);
@@ -87,6 +101,13 @@ const LoginPage = () => {
               {error}
             </div>
           )}
+
+          {/* Demo credentials hint */}
+          <div className="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded mb-4 text-sm">
+            <p className="font-semibold">Demo Credentials:</p>
+            <p>user@example.com / password123</p>
+            <p>test@test.com / test123</p>
+          </div>
 
           {/* Navigation */}
           <div className="flex justify-evenly space-x-6 mb-6 border-b pb-4">
