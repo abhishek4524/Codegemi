@@ -419,12 +419,6 @@ Working with CodeGemi Solutions was an absolute pleasure. Their team is dedicate
           <div className="relative">
             <h5 className="font-bold text-xl mb-4 text-gray-800 group-hover:text-gray-900 transition-colors duration-300">{service.title}</h5>
             <p className="text-gray-600 mb-6 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">{service.description}</p>
-            <Link to={`/services/${service.id}`} className="text-blue-600 font-semibold flex items-center group/link">
-              <span className="mr-2">Learn More</span>
-              <svg className="w-5 h-5 ml-1 group-hover/link:translate-x-2 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
           </div>
           
           {/* Number badge */}

@@ -11,7 +11,7 @@ const services = [
     id: 1,
     title: "Software Development",
     icon: assets.SoftwareDevelopments_HOMEPAGEICON,
-    image: assets.SoftwareDevelopments_HOMEPAGE,
+    image: "https://i.pinimg.com/1200x/d5/13/de/d513de574755719b537bb2d4f7e4a77d.jpg",
     description: "Custom software solutions tailored to your business needs and goals.",
     fullDescription: "Our software development services provide end-to-end solutions for your business needs. We specialize in creating scalable, maintainable applications using the latest technologies and best practices. From initial concept to deployment and maintenance, we ensure your software delivers maximum value.",
     features: [
@@ -27,7 +27,7 @@ const services = [
     id: 2,
     title: "Application Development",
     icon: assets.ApplicationDevelopments_HOMEPAGEICON,
-    image: assets.ApplicationDevelopments_HOMEPAGE,
+    image: "https://i.pinimg.com/736x/1b/4b/24/1b4b248ada4c022809e443a7d24020a2.jpg",
     description: "Native and cross-platform mobile applications with intuitive UX/UI.",
     fullDescription: "We build responsive and user-friendly applications for both iOS and Android platforms. Our focus is on creating seamless user experiences that drive engagement and conversion. Our apps are performance-optimized and follow platform-specific design guidelines.",
     features: [
@@ -43,7 +43,7 @@ const services = [
     id: 3,
     title: "RPA Workflow Automation",
     icon: assets.RPAICONServicePage,
-    image: assets.RPAWorkFolwServicepage,
+    image: "https://i.pinimg.com/1200x/cd/a1/76/cda176a3ec6c4fd0eeb2b7b8dacbd0cb.jpg",
     description: "Automate repetitive tasks to increase efficiency and reduce errors.",
     fullDescription: "Our Robotic Process Automation services help businesses automate repetitive, rule-based tasks to improve accuracy and free up your team for higher-value work. We identify automation opportunities and implement tailored solutions.",
     features: [
@@ -59,7 +59,7 @@ const services = [
     id: 4,
     title: "Web Development",
     icon: assets.WebDevelopments_HOMEPAGEICON,
-    image: assets.WebDevelopments_HOMEPAGE,
+    image: "https://i.pinimg.com/1200x/0f/bc/e0/0fbce0dcc3264b70c2aa30bb0aa36fbf.jpg",
     description: "Responsive, modern websites that convert visitors into customers.",
     fullDescription: "We create stunning, high-performance websites that not only look great but also drive conversions. Our web development approach combines cutting-edge technology with conversion rate optimization principles.",
     features: [
@@ -75,7 +75,7 @@ const services = [
     id: 5,
     title: "Graphic Design",
     icon: assets.graphicdesignservicespage,
-    image: assets.graphicdesignservicespage,
+    image: "https://i.pinimg.com/1200x/bd/dd/2a/bddd2a086b0f4fedaf5fb5353aa70dd8.jpg",
     description: "Visually compelling designs that communicate your brand story.",
     fullDescription: "Our graphic design services help you establish a strong visual identity that resonates with your target audience. We create designs that not only look beautiful but also effectively communicate your message.",
     features: [
@@ -91,7 +91,7 @@ const services = [
     id: 6,
     title: "IT Management",
     icon: assets.ITConsultingIcon,
-    image: assets.ITconsulting_HOMEPAGE,
+    image: "https://i.pinimg.com/1200x/37/e1/89/37e189e31d55b76bb9b2c3bff26d5150.jpg",
     description: "Comprehensive IT infrastructure management and support services.",
     fullDescription: "Our IT management services ensure your technology infrastructure is reliable, secure, and aligned with your business objectives. We provide end-to-end IT support and strategic guidance.",
     features: [
@@ -107,7 +107,7 @@ const services = [
     id: 7,
     title: "Digital Marketing",
     icon: assets.DigitalMarketingservicespage,
-    image: assets.DigitalMarketingservicespage,
+    image: "https://i.pinimg.com/736x/a5/da/25/a5da2594f7e7813aea7dffcbf17d108d.jpg",
     description: "Data-driven strategies to increase your online presence and growth.",
     fullDescription: "Our digital marketing services leverage data and creativity to drive growth and maximize ROI. We develop comprehensive strategies tailored to your business goals and target audience.",
     features: [
@@ -123,7 +123,7 @@ const services = [
     id: 8,
     title: "Data Analysis",
     icon: assets.DataAnalyticsIcon,
-    image: assets.DataAnalysis_HOMEPAGE,
+    image: "https://i.pinimg.com/1200x/dd/4d/0d/dd4d0d8145da8a1cb7dad750ce5e2554.jpg",
     description: "Transform your data into actionable insights for business decisions.",
     fullDescription: "Our data analysis services help you unlock the value in your data. We use advanced analytics techniques to uncover patterns, trends, and insights that drive informed decision-making.",
     features: [
@@ -139,7 +139,7 @@ const services = [
     id: 9,
     title: "AI Solutions",
     icon: assets.AiSolutionservicepage,
-    image: assets.AiSolutionservicepage1,
+    image: "https://i.pinimg.com/1200x/c4/e4/fa/c4e4fab939ab349fa4cd836b4b98e637.jpg",
     description: "Intelligent AI systems to automate processes and enhance decision-making.",
     fullDescription: "Our AI solutions leverage cutting-edge machine learning and artificial intelligence technologies to transform your business operations. We develop intelligent systems that learn, adapt, and provide valuable insights to drive innovation and efficiency.",
     features: [
@@ -155,7 +155,7 @@ const services = [
     id: 10,
     title: "Data Science",
     icon: assets.DataScienceservicepage,
-    image: assets.DataScienceservicepage,
+    image: "https://i.pinimg.com/1200x/ab/b5/33/abb533741bcd9b568b61308b20d49673.jpg",
     description: "Advanced analytics and machine learning to extract valuable insights from data.",
     fullDescription: "Our data science services help you harness the power of your data through advanced statistical analysis, machine learning, and predictive modeling. We transform complex data into actionable intelligence that drives strategic decision-making.",
     features: [
@@ -171,7 +171,7 @@ const services = [
     id: 11,
     title: "Robotics",
     icon: assets.RoboticesServicepage,
-    image: assets.RoboticesServicepage,
+    image: "https://i.pinimg.com/1200x/61/4c/10/614c100caaa658a27f4fc48d1087529b.jpg",
     description: "Cutting-edge robotic solutions for industrial automation and innovation.",
     fullDescription: "Our robotics services provide innovative automation solutions that enhance productivity, precision, and safety. We design and implement robotic systems tailored to your specific industry needs, from manufacturing to healthcare.",
     features: [
